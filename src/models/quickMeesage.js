@@ -9,6 +9,9 @@ module.exports = (sequelize, DataTypes) => {
                 notEmpty: true,
             },
         },
+    },
+    {
+        underscored: true,
     });
 
     QuickMessage.associate = (models) => {

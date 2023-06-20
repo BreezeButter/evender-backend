@@ -18,7 +18,7 @@ sequelize.sync({ force: true }).then(() => {
         { id: 3, type: "UserGold" },
         { id: 4, type: "SupperUser" },
     ]);
-})``
+})
 
     .then(() => {
         return EventCategory.bulkCreate([
@@ -127,15 +127,15 @@ sequelize.sync({ force: true }).then(() => {
                 description:
                     "Are you ready for a fun, engaging, and healthful event? Join us for our Community Badminton Event, titled Smash It Up!. This is a perfect opportunity to show off your badminton skills, meet new people, and get a great workout.",
                 location: "Bangkok",
-                dateStart: 30 / 11 / 2022,
-                dateEnd: 30 / 11 / 2022,
+                dateStart: '2038-01-19 03:14:07',
+                dateEnd: '2038-01-19 03:14:07',
                 capacity: 10,
                 image1: "https://upload.wikimedia.org/wikipedia/commons/f/fd/Olympics_2012_Mixed_Doubles_Final.jpg",
                 userId: 1,
                 eventCategoryId: 1,
                 latitude: 13.668217,
                 longitude: 100.614021,
-            },
+            }
         ]);
     })
 

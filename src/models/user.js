@@ -6,10 +6,6 @@ module.exports = (sequelize, DataTypes) => {
         {
             userName: {
                 type: DataTypes.STRING,
-                allowNull: false,
-                validate: {
-                    notEmpty: true,
-                },
             },
 
             firstName: {
