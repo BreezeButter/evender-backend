@@ -21,7 +21,6 @@ module.exports = (sequelize, DataTypes) => {
         Chat.belongsTo(models.QuickMessage, {
             foreignKey: {
                 name: "QuickMessageId",
-               
             },
             onDelete: "CASCADE",
             onUpdate: "CASCADE",

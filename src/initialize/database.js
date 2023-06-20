@@ -30,6 +30,7 @@ sequelize
             { id: 4, name: "Work", emoji: "U+1F4DA" },
         ]);
     })
+
     .then(() => {
         return User.bulkCreate([
             {
@@ -119,6 +120,7 @@ sequelize
             },
         ]);
     })
+
     .then(() => {
         return Event.bulkCreate([
             {
@@ -126,13 +128,15 @@ sequelize
                 title: "Smash It Up! Community Badminton Event",
                 description:
                     "Are you ready for a fun, engaging, and healthful event? Join us for our Community Badminton Event, titled Smash It Up!. This is a perfect opportunity to show off your badminton skills, meet new people, and get a great workout.",
-                location: "BKK Sathorn",
+                location: "Bangkok",
                 dateStart: 30 / 11 / 2022,
                 dateEnd: 30 / 11 / 2022,
                 capacity: 10,
                 image1: "https://upload.wikimedia.org/wikipedia/commons/f/fd/Olympics_2012_Mixed_Doubles_Final.jpg",
                 userId: 1,
                 eventCategoryId: 1,
+                latitude:13.668217,
+                longitude:100.614021
             },
         ]);
     })
@@ -156,9 +160,9 @@ sequelize
 
     .then(() => {
         return QuickMessage.bulkCreate([
-            { id: 1, name: "OK !! I will go together" },
-            { id: 2, name: "I am interested" },
-            { id: 3, name: "How much for go event" },
+            { id: 1, message: "OK !! I will go together" },
+            { id: 2, message: "I am interested" },
+            { id: 3, message: "How much for go event"},
         ]);
     })
 
@@ -228,5 +232,6 @@ sequelize
             },
         ]);
     })
+    
     .then(() => process.exit(0))
     .catch((err) => console.log(err.message));

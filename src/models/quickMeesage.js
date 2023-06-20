@@ -15,7 +15,6 @@ module.exports = (sequelize, DataTypes) => {
         QuickMessage.hasMany(models.Chat, {
             foreignKey: {
                 name: "QuickMessageId",
-                
             },
             onDelete: "CASCADE",
             onUpdate: "CASCADE",

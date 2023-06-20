@@ -22,6 +22,20 @@ module.exports = (sequelize, DataTypes) => {
                     notEmpty: true,
                 },
             },
+            latitude: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                validate: {
+                    notEmpty: true,
+                },
+            },
+            longitude: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                validate: {
+                    notEmpty: true,
+                },
+            },
             dateStart: {
                 type: DataTypes.DATE,
                 allowNull: false,
