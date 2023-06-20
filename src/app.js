@@ -4,6 +4,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
+const eventRoute = require("./routes/eventRoute");
 
 const app = express();
 
@@ -24,8 +25,10 @@ app.use(
 app.use(helmet());
 app.use(express.json());
 
-app.use(notFoundMiddleware);
-app.use(errorMiddleware);
+app.use("/event", eventRoute);
+
+// app.use(notFoundMiddleware);
+// app.use(errorMiddleware);
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => console.log("server running on port " + port));
