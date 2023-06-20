@@ -11,16 +11,14 @@ const {
     UserType,
 } = require("../models");
 
-sequelize
-    .sync({ force: true })
-    .then(() => {
-        return UserType.bulkCreate([
-            { id: 1, type: "Newbie" },
-            { id: 2, type: "Explorer" },
-            { id: 3, type: "User Gold" },
-            { id: 4, type: "Supper User" },
-        ]);
-    })
+sequelize.sync({ force: true }).then(() => {
+    return UserType.bulkCreate([
+        { id: 1, type: "Newbie" },
+        { id: 2, type: "Explorer" },
+        { id: 3, type: "UserGold" },
+        { id: 4, type: "SupperUser" },
+    ]);
+})``
 
     .then(() => {
         return EventCategory.bulkCreate([
@@ -135,8 +133,8 @@ sequelize
                 image1: "https://upload.wikimedia.org/wikipedia/commons/f/fd/Olympics_2012_Mixed_Doubles_Final.jpg",
                 userId: 1,
                 eventCategoryId: 1,
-                latitude:13.668217,
-                longitude:100.614021
+                latitude: 13.668217,
+                longitude: 100.614021,
             },
         ]);
     })
@@ -162,7 +160,7 @@ sequelize
         return QuickMessage.bulkCreate([
             { id: 1, message: "OK !! I will go together" },
             { id: 2, message: "I am interested" },
-            { id: 3, message: "How much for go event"},
+            { id: 3, message: "How much for go event" },
         ]);
     })
 
@@ -232,6 +230,6 @@ sequelize
             },
         ]);
     })
-    
+
     .then(() => process.exit(0))
     .catch((err) => console.log(err.message));
