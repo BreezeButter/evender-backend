@@ -8,6 +8,7 @@ const eventRoute = require("./routes/eventRoute");
 const notFoundMiddleware = require('./middlewares/notFound')
 const errorMiddleware = require('./middlewares/error')
 const authRoute = require('./routes/auth-route')
+const searchRoute = require("./routes/searchRoute");
 
 const app = express();
 
@@ -34,6 +35,10 @@ app.use("/event", eventRoute);
 
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);
+app.use("/search", searchRoute);
+
+// app.use(notFoundMiddleware);
+// app.use(errorMiddleware);
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => console.log("server running on port " + port));
