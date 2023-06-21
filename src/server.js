@@ -29,7 +29,7 @@ io.on("connection", (socket) => {
     socket.on("join room", (room) => {
         socket.join(room); // Join the specified room
         chatRooms[room] = chatRooms[room] || []; // Create the room if it doesn't exist
-        socket.emit("room messages", chatRooms[room]); // Send existing messages to the joining user
+        // socket.emit("room messages", chatRooms[room]); // Send existing messages to the joining user
     });
 
     // Handle chat messages
