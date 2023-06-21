@@ -4,13 +4,14 @@
     "description": "",
     "main": "app.js",
     "scripts": {
-        "start": "nodemon src/app.js ",
+        "start": "nodemon src/server.js ",
         "db:sync": "node src/initialize/database.js"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "@socket.io/admin-ui": "^0.5.1",
         "bcryptjs": "^2.4.3",
         "cloudinary": "^1.37.1",
         "cors": "^2.8.5",
