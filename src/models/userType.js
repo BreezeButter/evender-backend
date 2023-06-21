@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
             type: {
                 type: DataTypes.STRING,
                 allowNull: false,
+                defaultValue: "Newbie",
                 validate: {
                     notEmpty: true,
                 },
@@ -25,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
             foreignKey: {
                 name: "userTypeId",
                 allowNull: false,
+                defaultValue:1,
             },
             onDelete: "CASCADE",
             onUpdate: "CASCADE",

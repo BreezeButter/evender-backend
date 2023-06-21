@@ -5,6 +5,9 @@ module.exports = (sequelize, DataTypes) => {
         rating: {
             type: DataTypes.INTEGER,
         },
+    },
+    {
+        underscored: true,
     });
 
     EventReview.associate = (models) => {
