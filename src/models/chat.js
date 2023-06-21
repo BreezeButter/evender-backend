@@ -2,7 +2,7 @@ module.exports = (sequelize, DataTypes) => {
     const Chat = sequelize.define(
         "Chat",
         {
-            massage: {
+            message: {
                 type: DataTypes.STRING,
             },
             image: {
