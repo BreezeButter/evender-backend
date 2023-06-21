@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 
-exports.hash = (password) => bcrypt.hash(password, +process.env.HASH_SALT);
+exports.hash = (password) => (bcrypt.hash(password, 12));
+
 
 exports.compare = (password, hashedPassword) =>
     bcrypt.compare(password, hashedPassword);
