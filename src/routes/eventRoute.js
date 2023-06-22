@@ -6,5 +6,10 @@ const upload = require("../middlewares/upload");
 const router = express.Router();
 
 router.get("/getAllEvents", eventController.getAllEvents);
-router.post("/createEvent", upload.array("image"), eventController.createEvent);
+router.post(
+    "/createEvent",
+    authenticate,
+    upload.array("image"),
+    eventController.createEvent
+);
 module.exports = router;
