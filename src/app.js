@@ -9,6 +9,7 @@ const notFoundMiddleware = require('./middlewares/notFound')
 const errorMiddleware = require('./middlewares/error')
 const authRoute = require('./routes/auth-route')
 const searchRoute = require("./routes/searchRoute");
+const userRoute = require('./routes/user-route')
 
 const app = express();
 
@@ -33,9 +34,9 @@ app.use("/auth", authRoute);
 
 app.use("/event", eventRoute);
 
-app.use(notFoundMiddleware);
-app.use(errorMiddleware);
+
 app.use("/search", searchRoute);
+app.use("/user", userRoute)
 
 // app.use(notFoundMiddleware);
 // app.use(errorMiddleware);
