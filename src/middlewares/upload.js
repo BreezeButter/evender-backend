@@ -9,7 +9,7 @@ const storage = multer.diskStorage({
             null,
             new Date().getTime() +
                 "" +
-                Math.round(Math.random()) * 100000 +
+                Math.round(Math.random() * 100000) +
                 "." +
                 file.mimetype.split("/")[1]
         );
