@@ -4,12 +4,12 @@ const cors = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
-const eventRoute = require("./routes/eventRoute");
 const notFoundMiddleware = require("./middlewares/notFound");
 const errorMiddleware = require("./middlewares/error");
 const authRoute = require("./routes/auth-route");
 const searchRoute = require("./routes/searchRoute");
-
+const eventRoute = require("./routes/eventRoute");
+const eventDetailRoute = require("./routes/eventDetailRoute");
 const app = express();
 
 app.use(cors());
@@ -32,7 +32,7 @@ app.use(express.json());
 app.use("/auth", authRoute);
 
 app.use("/event", eventRoute);
-
+app.use("/eventdetails", eventDetailRoute);
 app.use("/search", searchRoute);
 
 app.use(notFoundMiddleware);
