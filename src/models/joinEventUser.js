@@ -1,7 +1,13 @@
 //// ###### MODEL  : USER #######/////
 
 module.exports = (sequelize) => {
-    const JoinEventUser = sequelize.define("JoinEventUser");
+    const JoinEventUser = sequelize.define(
+        "JoinEventUser",
+        {},
+        {
+            underscored: true,
+        }
+    );
 
     JoinEventUser.associate = (models) => {
         JoinEventUser.belongsTo(models.User, {
