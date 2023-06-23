@@ -76,9 +76,6 @@ exports.logingoogle = async (req, res, next) => {
             console.log('(userGoogle',userGoogle)
         } 
 
-
-      
-
         const accessToken = tokenService.sign({ id: userGoogle ? userGoogle.id : user.id });
         res.status(200).json({ accessToken });
     } catch (err) {
