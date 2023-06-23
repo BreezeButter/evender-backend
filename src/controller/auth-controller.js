@@ -20,7 +20,7 @@ exports.register = async (req, res, next) => {
             createError("email is already exist", 400);
         }
         value.password = await bcryptService.hash(value.password);
-        value.email.toLowerCase()
+        value.email.toLowerCase
         const user = await User.create(value);
         const accessToken = tokenService.sign({ id: user.id });
         res.status(200).json({ accessToken });
@@ -35,7 +35,7 @@ exports.login = async (req, res, next) => {
         // console.log(value,"value")
         const user = await User.findOne({
             where: {
-                email: value.email.toLowerCase()
+                email: value.email
             }
         });
         if (!user) {
@@ -55,6 +55,28 @@ exports.login = async (req, res, next) => {
             createError("invalid credential", 400);
         }
         const accessToken = tokenService.sign({ id: user.id });
+        res.status(200).json({ accessToken });
+    } catch (err) {
+        next(err);
+    }
+};
+
+exports.logingoogle = async (req, res, next) => {
+    try {
+        const value = req.body;
+        console.log("value---------->",value)
+        const user = await User.findOne({
+            where: {
+                email: value.email.toLowerCase()
+            }
+        });
+       let userGoogle;
+        if (!user) {
+            userGoogle = await User.create(value);
+            console.log('(userGoogle',userGoogle)
+        } 
+
+        const accessToken = tokenService.sign({ id: userGoogle ? userGoogle.id : user.id });
         res.status(200).json({ accessToken });
     } catch (err) {
         next(err);
