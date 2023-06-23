@@ -87,7 +87,7 @@ exports.createEventJoin = async (req, res, next) => {
             },
         });
         const check = !!checkUserInEvent;
-        console.log("---------", check);
+
         if (check) {
             res.status(200).json({ eventId: checkUserInEvent.eventId });
         } else {
