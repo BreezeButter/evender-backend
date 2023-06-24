@@ -35,3 +35,18 @@ exports.getSearch = async (req, res, next) => {
         next(err);
     }
 };
+
+exports.palaceProvince = async (req, res, next) => {
+    try {
+        const placeOutput = await sequelize.query(
+            "SELECT DISTINCT placeProvince FROM Events",
+            {
+                type: sequelize.QueryTypes.SELECT,
+            }
+        );
+
+        res.status(200).json(placeOutput);
+    } catch (err) {
+        next(err);
+    }
+};
