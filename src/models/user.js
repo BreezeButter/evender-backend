@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
         {
             userName: {
                 type: DataTypes.STRING,
+                
             },
 
             firstName: {
@@ -107,7 +108,7 @@ module.exports = (sequelize, DataTypes) => {
             foreignKey: {
                 name: "userId",
                 allowNull: false,
-                defaultValue: 1,
+                defaultValue:1,
             },
             onDelete: "RESTRICT",
             onUpdate: "RESTRICT",
