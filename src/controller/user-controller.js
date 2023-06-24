@@ -1,31 +1,33 @@
-const uploadService = require('../services/upload-service');
-const fs = require('fs')
+const uploadService = require("../services/upload-service");
+const fs = require("fs");
 const { User } = require("../models");
 
 exports.updateUser = async (req, res, next) => {
     try {
-        const { id } = req.user
-
+        const { id } = req.user;
         const result = await uploadService.upload(req.file.path);
-        const { firstName, lastName, gender, bdate, aboutMe } = req.body
+        const { firstName, lastName, gender, bdate, aboutMe } = req.body;
 
-        const update = await User.update({
-            firstName,
-            lastName,
-            gender,
-            bdate,
-            aboutMe,
-            image: result.secure_url
-        }, {
-            where: { id: id }
-        })
+        const update = await User.update(
+            {
+                firstName,
+                lastName,
+                gender,
+                bdate,
+                aboutMe,
+                image: result.secure_url,
+            },
+            {
+                where: { id: id },
+            }
+        );
 
-        res.status(200).json(update)
+        res.status(200).json(update);
         // console.log("hellooooooooooooooooooooooooooooooooooo")
     } catch (err) {
         next(err);
     }
-}
+};
 
 // exports.uploadImage = async (req, res, next) => {
 //     try {

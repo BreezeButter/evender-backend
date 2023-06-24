@@ -3,6 +3,6 @@ router = express.Router();
 
 const searchEventController = require("../controller/searchEventController");
 
-router.get("/category/:input", searchEventController.getEventByCategory);
+router.get("/filter", searchEventController.getSearch);
 
 module.exports = router;

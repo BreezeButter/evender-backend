@@ -1,28 +1,37 @@
-const { Event, JoinEventUser,User } = require("../models");
+const { Event } = require("../models");
+const { Op } = require("sequelize");
 
-exports.getEventByCategory = async (req, res, next) => {
+exports.getSearch = async (req, res, next) => {
     try {
-        const { input } = req.params;
-        console.log("----->", input);
-        if (input == 1) {
-            const event = await Event.findAll({include:{ model: JoinEventUser,
-                include: User}} 
-            );
-            res.status(200).json(event);
-        } else {
-            const event = await Event.findAll({
-                where: { eventCategoryId: input },
-                include: [{ model: JoinEventUser, include: User }],
-            });
-            res.status(200).json(event);
+        const value = req.body;
+
+        let whereOp = {};
+
+        if (value.eventCategoryId) {
+            whereOp.eventCategoryId = +value.eventCategoryId;
         }
+        if (value.dateStart) {
+            whereOp.dateStart = value.dateStart;
+        }
+        if (value.dateEnd) {
+            whereOp.dateEnd = value.dateEnd;
+        }
+        if (value.title) {
+            whereOp.title = { [Op.like]: `%${value.title}%` }; // Allows for partial matching on title
+        }
+        if (value.placeName) {
+            whereOp.placeName = { [Op.like]: `%${value.placeName}%` }; // Allows for partial matching on title
+        }
+        if (value.placeProvince) {
+            whereOp.placeProvince = value.placeProvince;
+        }
+
+        const searchOutput = await Event.findAll({
+            where: whereOp,
+        });
+
+        res.status(200).json(searchOutput);
     } catch (err) {
         next(err);
     }
 };
-
-
-
-
-
-
