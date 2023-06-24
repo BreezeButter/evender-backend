@@ -38,14 +38,17 @@ exports.getSearch = async (req, res, next) => {
 
 exports.palaceProvince = async (req, res, next) => {
     try {
-        const placeOutput = await sequelize.query(
-            "SELECT DISTINCT placeProvince FROM Events",
-            {
-                type: sequelize.QueryTypes.SELECT,
-            }
+        const placeOutput = await Event.findAll({
+            attributes: ["placeProvince"],
+            distinct: "placeProvince",
+        });
+        const distinctOutput = placeOutput.filter(
+            (v, i, a) =>
+                a.map((e) => e["placeProvince"]).indexOf(v["placeProvince"]) ===
+                i
         );
 
-        res.status(200).json(placeOutput);
+        res.status(200).json(distinctOutput);
     } catch (err) {
         next(err);
     }
