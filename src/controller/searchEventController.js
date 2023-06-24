@@ -6,6 +6,7 @@ exports.getSearch = async (req, res, next) => {
         const value = req.body;
 
         let whereOp = {};
+        let whereOptitle = {};
 
         if (value.eventCategoryId) {
             whereOp.eventCategoryId = +value.eventCategoryId;
@@ -19,15 +20,20 @@ exports.getSearch = async (req, res, next) => {
         if (value.title) {
             whereOp.title = { [Op.like]: `%${value.title}%` }; // Allows for partial matching on title
         }
-        if (value.placeName) {
-            whereOp.placeName = { [Op.like]: `%${value.placeName}%` }; // Allows for partial matching on title
+        if (value.box) {
+            whereOp.placeName = { [Op.like]: `%${value.box}%` }; // Allows for partial matching on title
+        }
+        if (value.box) {
+            whereOptitle.title = { [Op.like]: `%${value.box}%` }; // Allows for partial matching on title
         }
         if (value.placeProvince) {
             whereOp.placeProvince = value.placeProvince;
         }
-
+        console.log("whereOp", whereOp);
+        console.log("whereOptitle", whereOptitle);
         const searchOutput = await Event.findAll({
             where: whereOp,
+            [Op.or]: whereOptitle,
         });
 
         res.status(200).json(searchOutput);
