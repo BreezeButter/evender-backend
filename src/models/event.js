@@ -11,7 +11,6 @@ module.exports = (sequelize, DataTypes) => {
                     notEmpty: true,
                 },
             },
-
             description: {
                 type: DataTypes.STRING,
             },
@@ -24,17 +23,12 @@ module.exports = (sequelize, DataTypes) => {
             },
             latitude: {
                 type: DataTypes.INTEGER,
-                allowNull: false,
-                validate: {
-                    notEmpty: true,
-                },
             },
             longitude: {
                 type: DataTypes.INTEGER,
-                allowNull: false,
-                validate: {
-                    notEmpty: true,
-                },
+            },
+            placeId: {
+                type: DataTypes.STRING,
             },
             dateStart: {
                 type: DataTypes.DATE,
@@ -52,7 +46,8 @@ module.exports = (sequelize, DataTypes) => {
             },
             capacity: {
                 type: DataTypes.INTEGER,
-                allowNull: false,
+                max: 50,
+                len: [1, 30],
                 validate: {
                     notEmpty: true,
                 },

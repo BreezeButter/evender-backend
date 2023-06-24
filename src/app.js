@@ -6,14 +6,11 @@ const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const notFoundMiddleware = require("./middlewares/notFound");
 const errorMiddleware = require("./middlewares/error");
+const eventRoute = require("./routes/eventRoute");
+const eventDetailRoute = require("./routes/eventDetailRoute");
 const authRoute = require("./routes/auth-route");
 const searchRoute = require("./routes/searchRoute");
-const eventRoute = require("./routes/eventRoute");
-const notFoundMiddleware = require('./middlewares/notFound')
-const errorMiddleware = require('./middlewares/error')
-const authRoute = require('./routes/auth-route')
-const searchRoute = require("./routes/searchRoute");
-const userRoute = require('./routes/user-route')
+const userRoute = require("./routes/user-route");
 
 const app = express();
 
@@ -40,12 +37,10 @@ app.use("/event", eventRoute);
 app.use("/eventdetails", eventDetailRoute);
 app.use("/search", searchRoute);
 
-
-app.use("/user", userRoute)
+app.use("/user", userRoute);
 
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);
-
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => console.log("server running on port " + port));
