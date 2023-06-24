@@ -9,12 +9,9 @@ const notFoundMiddleware = require("./middlewares/notFound");
 const errorMiddleware = require("./middlewares/error");
 const authRoute = require("./routes/auth-route");
 const searchRoute = require("./routes/searchRoute");
-const eventRoute = require("./routes/eventRoute");
-const notFoundMiddleware = require("./middlewares/notFound");
-const errorMiddleware = require("./middlewares/error");
-const authRoute = require("./routes/auth-route");
-const searchRoute = require("./routes/searchRoute");
+const http = require("http");
 const userRoute = require("./routes/user-route");
+const eventDetailRoute = require("./routes/eventDetailRoute");
 
 const app = express();
 const server = http.createServer(app);
