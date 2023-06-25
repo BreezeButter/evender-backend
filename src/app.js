@@ -5,13 +5,13 @@ const morgan = require("morgan");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const eventRoute = require("./routes/eventRoute");
+const http = require("http");
+const eventDetailRoute = require("./routes/eventDetailRoute");
 const notFoundMiddleware = require("./middlewares/notFound");
 const errorMiddleware = require("./middlewares/error");
 const authRoute = require("./routes/auth-route");
 const searchRoute = require("./routes/searchRoute");
-const http = require("http");
 const userRoute = require("./routes/user-route");
-const eventDetailRoute = require("./routes/eventDetailRoute");
 
 const app = express();
 const server = http.createServer(app);
@@ -44,7 +44,7 @@ app.use("/user", userRoute);
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);
 
-const port = process.env.PORT || 8000;
-app.listen(port, () => console.log("server running on port " + port));
+// const port = process.env.PORT || 8000;
+// app.listen(port, () => console.log("server running on port " + port));
 
 module.exports = server;

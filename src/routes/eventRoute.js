@@ -13,3 +13,11 @@ router.post(
     eventController.createEvent
 );
 module.exports = router;
+
+router.get(
+    "/getJoinEventByUser",
+    authenticate,
+    eventController.getJoinEventByUser
+);
+
+router.get("/getChatByEvent/:id", eventController.getChatByEvent);

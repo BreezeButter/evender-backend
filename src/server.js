@@ -1,5 +1,6 @@
 const server = require("./app");
 const { Server } = require("socket.io");
+const { Chat } = require("./models");
 
 const io = new Server(server, {
     cors: {
@@ -9,24 +10,31 @@ const io = new Server(server, {
     },
 });
 
-const onlineUser = {};
 io.use((socket, next) => {
-    const userId = socket.handshake.auth.id;
+    // userId = socket.handshake.auth.id;
     console.log(socket.id);
-    console.log(userId);
-    onlineUser[userId] = socket.id;
-    console.log(onlineUser);
+    // console.log(userId);
+    // onlineUser[userId] = socket.id;
+    // console.log(onlineUser);
     next();
 });
 
 io.on("connection", (socket) => {
     socket.on("joinRoom", function (roomName) {
         socket.join(roomName);
-        console.log(socket.rooms, "1");
+        console.log(
+            socket.rooms,
+            "############################################"
+        );
     });
 
-    socket.on("sendMessage", (input) => {
+    socket.on("sendMessage", async (input) => {
         console.log(input);
+        await Chat.create({
+            message: input.message,
+            userId: input.userId,
+            eventId: input.room,
+        });
         socket.to(input.room).emit("receiveMessage", input.message);
     });
 
