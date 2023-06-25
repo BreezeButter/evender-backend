@@ -1,5 +1,6 @@
 const { Event } = require("../models");
 const { Op } = require("sequelize");
+const { QueryTypes } = require("sequelize");
 
 exports.getSearch = async (req, res, next) => {
     try {
@@ -7,30 +8,31 @@ exports.getSearch = async (req, res, next) => {
 
         let whereOp = {};
         let whereOptitle = {};
+        let whereDate = {};
 
         if (value.eventCategoryId) {
             whereOp.eventCategoryId = +value.eventCategoryId;
         }
-        if (value.dateStart) {
-            whereOp.dateStart = value.dateStart;
-        }
-        if (value.dateEnd) {
-            whereOp.dateEnd = value.dateEnd;
-        }
-        if (value.title) {
-            whereOp.title = { [Op.like]: `%${value.title}%` }; // Allows for partial matching on title
-        }
-        if (value.box) {
-            whereOp.placeName = { [Op.like]: `%${value.box}%` }; // Allows for partial matching on title
-        }
-        if (value.box) {
-            whereOptitle.title = { [Op.like]: `%${value.box}%` }; // Allows for partial matching on title
-        }
         if (value.placeProvince) {
             whereOp.placeProvince = value.placeProvince;
         }
+        if (value.dateStart) {
+            whereDate.dateStart = value.dateStart;
+        }
+        if (value.dateEnd) {
+            whereDate.dateEnd = value.dateEnd;
+        }
+        if (value.box) {
+            whereOptitle.placeName = { [Op.like]: `%${value.box}%` };
+        }
+        if (value.box) {
+            whereOptitle.title = { [Op.like]: `%${value.box}%` };
+        }
+
         console.log("whereOp", whereOp);
         console.log("whereOptitle", whereOptitle);
+        console.log("whereDate", whereOptitle);
+
         const searchOutput = await Event.findAll({
             where: whereOp,
             [Op.or]: whereOptitle,
