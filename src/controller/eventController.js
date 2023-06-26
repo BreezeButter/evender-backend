@@ -18,8 +18,14 @@ exports.getAllEvents = async (req, res, next) => {
 exports.createEvent = async (req, res, next) => {
     try {
         const id = req.user.id;
-        const { title, description, location, dateStart, dateEnd, capacity } =
-            req.body;
+        const {
+            title,
+            description,
+            placeProvince,
+            dateStart,
+            dateEnd,
+            capacity,
+        } = req.body;
         const result1 = cloudinary.uploader.upload(req.files[0].path);
         const result2 = cloudinary.uploader.upload(req.files[1].path);
         const result3 = cloudinary.uploader.upload(req.files[2].path);
@@ -31,7 +37,7 @@ exports.createEvent = async (req, res, next) => {
         const event = await Event.create({
             title,
             description,
-            location,
+            placeProvince,
             dateStart,
             dateEnd,
             capacity,

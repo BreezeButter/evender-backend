@@ -20,7 +20,11 @@ exports.register = async (req, res, next) => {
             createError("email is already exist", 400);
         }
         value.password = await bcryptService.hash(value.password);
+<<<<<<< HEAD
         value.email.toLowerCase();
+=======
+        value.email.toLowerCase;
+>>>>>>> 018f79c3c24247357257db1e2d57a6c467a0b04a
         const user = await User.create(value);
         const accessToken = tokenService.sign({ id: user.id });
         res.status(200).json({ accessToken });
@@ -35,7 +39,11 @@ exports.login = async (req, res, next) => {
         // console.log(value,"value")
         const user = await User.findOne({
             where: {
+<<<<<<< HEAD
                 email: value.email.toLowerCase(),
+=======
+                email: value.email,
+>>>>>>> 018f79c3c24247357257db1e2d57a6c467a0b04a
             },
         });
         if (!user) {

@@ -11,30 +11,26 @@ module.exports = (sequelize, DataTypes) => {
                     notEmpty: true,
                 },
             },
-
             description: {
                 type: DataTypes.STRING,
             },
-            location: {
+            placeName: {
                 type: DataTypes.STRING,
-                allowNull: false,
-                validate: {
-                    notEmpty: true,
-                },
+            },
+            placeProvince: {
+                type: DataTypes.STRING,
+            },
+            placeContry: {
+                type: DataTypes.STRING,
             },
             latitude: {
                 type: DataTypes.INTEGER,
-                allowNull: false,
-                validate: {
-                    notEmpty: true,
-                },
             },
             longitude: {
                 type: DataTypes.INTEGER,
-                allowNull: false,
-                validate: {
-                    notEmpty: true,
-                },
+            },
+            placeId: {
+                type: DataTypes.STRING,
             },
             dateStart: {
                 type: DataTypes.DATE,
@@ -52,7 +48,8 @@ module.exports = (sequelize, DataTypes) => {
             },
             capacity: {
                 type: DataTypes.INTEGER,
-                allowNull: false,
+                max: 50,
+                len: [1, 30],
                 validate: {
                     notEmpty: true,
                 },
@@ -87,8 +84,8 @@ module.exports = (sequelize, DataTypes) => {
                 name: "eventCategoryId",
                 allowNull: false,
             },
-            onDelete: "CASCADE",
-            onUpdate: "CASCADE",
+            onDelete: "RESTRICT",
+            onUpdate: "RESTRICT",
         });
 
         Event.hasMany(models.JoinEventUser, {

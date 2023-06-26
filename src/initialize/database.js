@@ -1,3 +1,8 @@
+const bcrypt = require("bcryptjs");
+
+const password = "123456";
+const hashedPassword = bcrypt.hashSync(password, 12);
+
 const {
     sequelize,
     Chat,
@@ -11,21 +16,24 @@ const {
     UserType,
 } = require("../models");
 
-sequelize.sync({ force: true }).then(() => {
-    return UserType.bulkCreate([
-        { id: 1, type: "Newbie" },
-        { id: 2, type: "Explorer" },
-        { id: 3, type: "UserGold" },
-        { id: 4, type: "SupperUser" },
-    ]);
-})
+sequelize
+    .sync({ force: true })
+    .then(() => {
+        return UserType.bulkCreate([
+            { id: 1, type: "Newbie" },
+            { id: 2, type: "Explorer" },
+            { id: 3, type: "UserGold" },
+            { id: 4, type: "SupperUser" },
+        ]);
+    })
 
     .then(() => {
         return EventCategory.bulkCreate([
-            { id: 1, name: "Sport", emoji: "U+1F3C3" },
-            { id: 2, name: "HangOut", emoji: "U+1F4E2" },
-            { id: 3, name: "Learning", emoji: "U+1F4DD" },
-            { id: 4, name: "Work", emoji: "U+1F4DA" },
+            { id: 1, name: "Bar" },
+            { id: 2, name: "Sport" },
+            { id: 3, name: "Resterant" },
+            { id: 4, name: "Cafe" },
+            { id: 5, name: "LifeStyle" },
         ]);
     })
 
@@ -37,7 +45,7 @@ sequelize.sync({ force: true }).then(() => {
                 firstName: "John",
                 lastName: "Doe",
                 email: "johndoe123@example.com",
-                password: 123456,
+                password: hashedPassword,
                 gender: "Male",
                 bdate: "1990-07-15",
                 image: "https://img.freepik.com/premium-vector/young-smiling-man-avatar-man-with-brown-beard-mustache-hair-wearing-yellow-sweater-sweatshirt-3d-vector-people-character-illustration-cartoon-minimal-style_365941-860.jpg",
@@ -54,7 +62,7 @@ sequelize.sync({ force: true }).then(() => {
                 firstName: "Jane",
                 lastName: "Doe",
                 email: "janedoe456@example.com",
-                password: 123456,
+                password: hashedPassword,
                 gender: "Female",
                 bdate: "1992-06-20",
                 image: "https://img.freepik.com/premium-vector/young-smiling-african-man-avatar-3d-vector-people-character-illustration-cartoon-minimal-style_365941-883.jpg?w=2000",
@@ -71,7 +79,7 @@ sequelize.sync({ force: true }).then(() => {
                 firstName: "Robert",
                 lastName: "Smith",
                 email: "robertsmith789@example.com",
-                password: 123456,
+                password: hashedPassword,
                 gender: "Male",
                 bdate: "1985-10-30",
                 image: "https://img.freepik.com/vecteurs-premium/diversite-vectorielle-3d-conception-icone-avatar-jeune-homme_624031-151.jpg?w=2000",
@@ -88,7 +96,7 @@ sequelize.sync({ force: true }).then(() => {
                 firstName: "Emily",
                 lastName: "Johnson",
                 email: "emilyjohnson1011@example.com",
-                password: 123456,
+                password: hashedPassword,
                 gender: "Female",
                 bdate: "1993-04-12",
                 image: "https://img.freepik.com/premium-vector/happy-young-woman-watching-into-rounded-frame-isolated-white-illustration-render-style_365941-118.jpg",
@@ -105,7 +113,7 @@ sequelize.sync({ force: true }).then(() => {
                 firstName: "Michael",
                 lastName: "Taylor",
                 email: "michaeltaylor1213@example.com",
-                password: 123456,
+                password: hashedPassword,
                 gender: "Male",
                 bdate: "1989-01-25",
                 image: "https://media.istockphoto.com/id/1389823037/vector/young-smiling-woman-mia-avatar-3d-vector-people-character-illustration-cartoon-minimal-style.jpg?s=612x612&w=0&k=20&c=ciwsDqBIy3mcTxhWN4I1S-kKSTvjoN1einMrQawNZDQ=",
@@ -126,23 +134,98 @@ sequelize.sync({ force: true }).then(() => {
                 title: "Smash It Up! Community Badminton Event",
                 description:
                     "Are you ready for a fun, engaging, and healthful event? Join us for our Community Badminton Event, titled Smash It Up!. This is a perfect opportunity to show off your badminton skills, meet new people, and get a great workout.",
-                location: "Bangkok",
-                dateStart: '2038-01-19 03:14:07',
-                dateEnd: '2038-01-19 03:14:07',
+                placeProvince: "Bangkok",
+                placeName: "Mintower",
+                dateStart: "2038-01-19 03:14:07",
+                dateEnd: "2038-01-20 03:14:07",
                 capacity: 10,
                 image1: "https://upload.wikimedia.org/wikipedia/commons/f/fd/Olympics_2012_Mixed_Doubles_Final.jpg",
                 userId: 1,
-                eventCategoryId: 1,
+                eventCategoryId: 2,
                 latitude: 13.668217,
                 longitude: 100.614021,
-            }
+                image1: "https://secure.meetupstatic.com/photos/event/1/e/1/600_454380481.jpeg",
+                image2: "https://secure.meetupstatic.com/photos/event/5/4/a/600_451321354.jpeg",
+            },
+            {
+                id: 2,
+                title: "Ace The Place! Badminton Meetup",
+                description:
+                    "Looking for some friendly competition? Come and join our badminton meetup, Ace The Place!. It's a great way to improve your skills, meet fellow players and have a great time.",
+                placeProvince: "Nakhonsawan",
+                placeName: "NongSomBoon",
+                dateStart: "2038-02-19 03:14:07",
+                dateEnd: "2038-02-20 03:14:07",
+                capacity: 15,
+                image1: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7tntHTg5E37aqURLh3s97v8DC1rqnJJE8ZQ&usqp=CAU",
+                userId: 3,
+                eventCategoryId: 2,
+                latitude: 13.7470406,
+                longitude: 100.5177129,
+                image1: "https://secure.meetupstatic.com/photos/event/1/e/1/600_454380481.jpeg",
+                image2: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKqXSocS1-Q4-NfljEe0jxzElfzaZqfgjYdg&usqp=CAU",
+            },
+            {
+                id: 3,
+                title: "Snow Board",
+                description:
+                    "Join us for an action-packed day of Snow Board at our Snow Boardn Bonanza. Whether you're a seasoned player or just getting started, this is the perfect event to get involved, meet new people and have some fun.",
+                placeProvince: "Bangkok",
+                placeName: "Fahsion Island",
+                dateStart: "2038-03-19 03:14:07",
+                dateEnd: "2038-03-20 03:14:07",
+                capacity: 20,
+                image1: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPN3udxXUYwnMG66K48oFMueXkVEU0V5_4Amgwkxzol0SMEulFSQut5XlzrUsDRyrrB-I&usqp=CAU",
+                userId: 2,
+                eventCategoryId: 2,
+                latitude: 13.7343367,
+                longitude: 100.5224472,
+                image1: "https://www.rei.com/dam/content_team_082817_18850_snowboards_choose_lg.jpg",
+                image2: "https://media.istockphoto.com/id/959512078/photo/girl-is-jumping-with-snowboard.jpg?s=612x612&w=0&k=20&c=Hv-UlzSeTBXUECnEAMPbnH3EUaSOrEbVzdCSPEnhXcQ=",
+            },
+            {
+                id: 4,
+                title: "Beer Cafe together all night",
+                description:
+                    "Get ready to make a racket at Beer Cafe! This is an event for all , meet new people, and have some fun.",
+                placeProvince: "Nakhonpathom",
+                placeName: "Club firBeer",
+                dateStart: "2038-04-19 03:14:07",
+                dateEnd: "2038-04-20 03:14:07",
+                capacity: 25,
+                image1: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNHfeQmSpdd_9nMyBtDUvgm6LJYK5EOQK-gA&usqp=CAU",
+                userId: 5,
+                eventCategoryId: 1,
+                latitude: 13.7403282,
+                longitude: 100.5217915,
+                image1: "https://www.forbesindia.com/media/images/2017/May/img_96157_rahulsingh_900x600.jpg",
+                image2: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5OcOV_9dEz4oW08eXVEQblLum0Hv5qZ_V7X2DO5e-ElSo7srzpDxSKywUrsQrQOO8AWc&usqp=CAU",
+            },
         ]);
     })
 
     .then(() => {
         return EventReview.bulkCreate([
-            { id: 1, rating: "3", userId: 1, eventId: 1 },
-            { id: 2, name: "4", userId: 2, eventId: 1 },
+            { id: 1, rating: 3, userId: 1, eventId: 1 },
+            { id: 2, rating: 4, userId: 2, eventId: 1 },
+            { id: 3, rating: 3, userId: 3, eventId: 1 },
+            { id: 4, rating: 4, userId: 4, eventId: 1 },
+            { id: 5, rating: 3, userId: 5, eventId: 1 },
+            { id: 6, rating: 4, userId: 1, eventId: 2 },
+            { id: 7, rating: 3, userId: 2, eventId: 2 },
+            { id: 8, rating: 2, userId: 3, eventId: 2 },
+            { id: 9, rating: 3, userId: 4, eventId: 2 },
+            { id: 10, rating: 4, userId: 5, eventId: 2 },
+            { id: 11, rating: 1, userId: 1, eventId: 3 },
+            { id: 12, rating: 4, userId: 2, eventId: 3 },
+            { id: 13, rating: 3, userId: 3, eventId: 3 },
+            { id: 14, rating: 2, userId: 4, eventId: 3 },
+            { id: 15, rating: 3, userId: 5, eventId: 3 },
+            { id: 16, rating: 4, userId: 1, eventId: 4 },
+            { id: 17, rating: 3, userId: 2, eventId: 4 },
+            { id: 18, rating: 4, userId: 3, eventId: 4 },
+            { id: 19, rating: 3, userId: 4, eventId: 4 },
+            { id: 20, rating: 4, userId: 5, eventId: 4 },
         ]);
     })
 
@@ -153,6 +236,12 @@ sequelize.sync({ force: true }).then(() => {
             { id: 3, userId: 3, eventId: 1 },
             { id: 4, userId: 4, eventId: 1 },
             { id: 5, userId: 5, eventId: 1 },
+            { id: 6, userId: 2, eventId: 2 },
+            { id: 7, userId: 3, eventId: 2 },
+            { id: 8, userId: 4, eventId: 3 },
+            { id: 9, userId: 5, eventId: 3 },
+            { id: 10, userId: 1, eventId: 4 },
+            { id: 11, userId: 3, eventId: 4 },
         ]);
     })
 

@@ -37,7 +37,7 @@ exports.updateEventDetail = async (req, res, next) => {
     const {
         title,
         description,
-        location,
+        placeProvince,
         dateStart,
         dateEnd,
         capacity,
@@ -57,7 +57,7 @@ exports.updateEventDetail = async (req, res, next) => {
         {
             title: req.body.title,
             description: req.body.description,
-            location: req.body.location,
+            placeProvince: req.body.placeProvince,
             dateStart: req.body.dateStart,
             dateEnd: req.body.dateEnd,
             capacity: req.body.capacity,
