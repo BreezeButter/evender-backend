@@ -40,13 +40,14 @@ module.exports = (sequelize, DataTypes) => {
                     "Other",
                     "Not Specified"
                 ),
+                defaultValue: "Not Specified",
             },
             bdate: {
                 type: DataTypes.DATEONLY,
             },
             image: {
                 defaultValue:
-                    "https://images.unsplash.com/photo-1543852786-1cf6624b9987?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGNhdHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60",
+                    "https://img.freepik.com/premium-psd/3d-render-cartoon-avatar-isolated_570939-48.jpg",
                 type: DataTypes.STRING,
             },
             coin: {
@@ -74,8 +75,8 @@ module.exports = (sequelize, DataTypes) => {
                 name: "userTypeId",
                 allowNull: false,
             },
-            onDelete: "CASCADE",
-            onUpdate: "CASCADE",
+            onDelete: "RESTRICT",
+            onUpdate: "RESTRICT",
         });
 
         User.hasMany(models.Event, {

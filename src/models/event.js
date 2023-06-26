@@ -14,12 +14,14 @@ module.exports = (sequelize, DataTypes) => {
             description: {
                 type: DataTypes.STRING,
             },
-            location: {
+            placeName: {
                 type: DataTypes.STRING,
-                allowNull: false,
-                validate: {
-                    notEmpty: true,
-                },
+            },
+            placeProvince: {
+                type: DataTypes.STRING,
+            },
+            placeContry: {
+                type: DataTypes.STRING,
             },
             latitude: {
                 type: DataTypes.INTEGER,
@@ -82,8 +84,8 @@ module.exports = (sequelize, DataTypes) => {
                 name: "eventCategoryId",
                 allowNull: false,
             },
-            onDelete: "CASCADE",
-            onUpdate: "CASCADE",
+            onDelete: "RESTRICT",
+            onUpdate: "RESTRICT",
         });
 
         Event.hasMany(models.JoinEventUser, {

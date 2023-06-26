@@ -32,11 +32,9 @@ app.use(helmet());
 app.use(express.json());
 
 app.use("/auth", authRoute);
-
 app.use("/event", eventRoute);
 app.use("/eventdetails", eventDetailRoute);
 app.use("/search", searchRoute);
-
 app.use("/user", userRoute);
 
 // app.use(notFoundMiddleware);
