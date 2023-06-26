@@ -54,3 +54,17 @@ exports.createEvent = async (req, res, next) => {
         }
     }
 };
+
+exports.getNextEvent = async (req, res, next) => {
+    try {
+        const id = req.user.id;
+        const user = await JoinEventUser.findAll({
+            where: { userId: id },
+            include: { model: Event },
+        });
+        // console.log(result);
+        res.status(200).json(user);
+    } catch (err) {
+        next(err);
+    }
+};

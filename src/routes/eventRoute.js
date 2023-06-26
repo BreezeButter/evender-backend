@@ -12,4 +12,7 @@ router.post(
     upload.array("image"),
     eventController.createEvent
 );
+
+router.get("/getNextEvent", authenticate, eventController.getNextEvent);
+
 module.exports = router;
