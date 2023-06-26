@@ -1,11 +1,10 @@
 const uploadService = require('../services/upload-service');
 const fs = require('fs')
-const { User } = require("../models");
+const { User, Event } = require("../models");
 
 exports.updateUser = async (req, res, next) => {
     try {
         const { id } = req.user
-
         const result = await uploadService.upload(req.file.path);
         const { firstName, lastName, gender, bdate, aboutMe } = req.body
 
@@ -21,30 +20,22 @@ exports.updateUser = async (req, res, next) => {
         })
 
         res.status(200).json(update)
-        // console.log("hellooooooooooooooooooooooooooooooooooo")
     } catch (err) {
         next(err);
     }
 }
+exports.getUserHostEventById = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        console.log(req.params);
+        const event = await Event.findAll({
+            where: { userId: id },
+            include: { model: User },
+        });
+        res.status(200).json(event);
+    } catch (err) {
+        next(err);
+    }
+};
 
-// exports.uploadImage = async (req, res, next) => {
-//     try {
-//         console.log('----->im', req.files.image)
-//         if (!req.files.image) {
-//             console.log('errorrrrr')
-//             createError('profile image is required.')
-//         }
-//         const updateValue = {}
-//         const result = await uploadService.upload(req.files.image[0].path);
-//         updateValue.image = result.secure_url
-//         console.log('response', updateValue)
-//         await User.update(updateValue, { where: { id: req.user.id } })
-//         res.status(200).json(updateValue)
-//     } catch (err) {
-//         next(err);
-//     } finally {
-//         if (req.files.image) {
-//             fs.unlinkSync(req.files.image[0].path)
-//         }
-//     }
-// };
+

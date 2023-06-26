@@ -39,8 +39,8 @@ app.use("/search", searchRoute);
 
 app.use("/user", userRoute);
 
-app.use(notFoundMiddleware);
-app.use(errorMiddleware);
+// app.use(notFoundMiddleware);
+// app.use(errorMiddleware);
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => console.log("server running on port " + port));
