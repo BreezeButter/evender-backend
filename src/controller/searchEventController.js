@@ -67,3 +67,13 @@ exports.palaceProvince = async (req, res, next) => {
         next(err);
     }
 };
+
+exports.getNearby = async (req, res, next) => {
+    try {
+        const { lat, lag } = req.body;
+
+        res.status(200).json(distinctOutput);
+    } catch (err) {
+        next(err);
+    }
+};
