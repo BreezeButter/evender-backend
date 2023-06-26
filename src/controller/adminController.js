@@ -17,9 +17,18 @@ exports.getAllEvents = async (req, res, next) => {
 
 exports.createEvent = async (req, res, next) => {
     try {
+        console.log(req.body);
         const id = req.user.id;
-        const { title, description, location, dateStart, dateEnd, capacity } =
-            req.body;
+        const {
+            title,
+            description,
+            location,
+            dateStart,
+            dateEnd,
+            capacity,
+            latitude,
+            longitude,
+        } = req.body;
         const result1 = cloudinary.uploader.upload(req.files[0].path);
         const result2 = cloudinary.uploader.upload(req.files[1].path);
         const result3 = cloudinary.uploader.upload(req.files[2].path);
@@ -40,8 +49,8 @@ exports.createEvent = async (req, res, next) => {
             image3,
             userId: id,
             eventCategoryId: 1,
-            latitude: 1,
-            longitude: 1,
+            latitude,
+            longitude,
         });
         res.status(200).json({ message: "create sucessfully" });
     } catch (err) {
@@ -55,16 +64,49 @@ exports.createEvent = async (req, res, next) => {
     }
 };
 
-exports.getNextEvent = async (req, res, next) => {
-    try {
-        const id = req.user.id;
-        const user = await JoinEventUser.findAll({
-            where: { userId: id },
-            include: { model: Event },
-        });
-        // console.log(result);
-        res.status(200).json(user);
-    } catch (err) {
-        next(err);
-    }
-};
+// const { Place } = require("../models");
+
+// exports.createPlace = async (req, res, next) => {
+//   try {
+//     const { namePlace, provincePlace, districtPlace, detailsPlace } = req.body;
+//     await Place.create({
+//       namePlace,
+//       provincePlace,
+//       districtPlace,
+//       detailsPlace,
+//       userId: req.user.id,
+//     });
+//     res.json({ message: "success" });
+//   } catch (error) {
+//     next(error);
+//   }
+// };
+
+// exports.showPlace = async (req, res, next) => {
+//   try {
+//     const userId = req.user.id;
+//     const showplace = await Place.findAll({ where: { userId } });
+//     res.json(showplace);
+//   } catch (error) {
+//     next(error);
+//   }
+// };
+
+// exports.deletePlace = async (req, res, next) => {
+//   try {
+//     const id = req.params.id;
+//     await Place.destroy({ where: { id } });
+//     res.json({ message: "delete success" });
+//   } catch (error) {
+//     next(error);
+//   }
+// };
+
+// exports.showPlace = async (req, res, next) => {
+//   try {
+//     const showplace = await Place.findAll();
+//     res.json(showplace);
+//   } catch (error) {
+//     next(error);
+//   }
+// };
