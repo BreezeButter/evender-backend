@@ -1,6 +1,8 @@
 const { Event } = require("../models");
 const { Op } = require("sequelize");
 
+const Sequelize = require("sequelize");
+
 exports.getSearch = async (req, res, next) => {
     try {
         const value = req.body;
@@ -70,10 +72,40 @@ exports.palaceProvince = async (req, res, next) => {
 
 exports.getNearby = async (req, res, next) => {
     try {
-        const { lat, lag } = req.body;
+        const { latitude, longitude, radius } = req.body;
+        const haversine = `(6371 * acos(cos(radians(${latitude})) * 
+    cos(radians(latitude)) * cos(radians(longitude) - radians(${longitude})) +
+    sin(radians(${latitude})) * sin(radians(latitude))))`;
 
-        res.status(200).json(distinctOutput);
-    } catch (err) {
-        next(err);
+        try {
+            const locations = await Event.findAll({
+                attributes: ["id", "latitude", "longitude"],
+                where: Sequelize.where(
+                    Sequelize.literal(haversine),
+                    "<=",
+                    radius
+                ),
+            });
+
+            const modify = JSON.parse(JSON.stringify(locations));
+            const eventIds = modify.map((el) => el.id);
+
+            const result = await Event.findAll({
+                where: {
+                    id: {
+                        [Op.in]: eventIds,
+                    },
+                },
+            });
+
+            console.log("#################", result);
+            res.json(result);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: "Internal server error" });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(400).json({ error: "Bad request" });
     }
 };

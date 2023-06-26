@@ -24,10 +24,10 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
             },
             latitude: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.DECIMAL(16, 10),
             },
             longitude: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.DECIMAL(16, 10),
             },
             placeId: {
                 type: DataTypes.STRING,
