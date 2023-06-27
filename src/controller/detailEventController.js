@@ -24,6 +24,7 @@ exports.getUserHostEventById = async (req, res, next) => {
             where: { id: id },
             include: { model: User },
         });
+
         res.status(200).json(event);
     } catch (err) {
         next(err);
@@ -81,13 +82,13 @@ exports.createEventJoin = async (req, res, next) => {
         const value = req.params;
         console.log(value);
         value.userId = req.user.id;
-        console.log("---->", value);
+
         const checkUserInEvent = await JoinEventUser.findOne({
             where: {
                 [Op.and]: [{ eventId: +value.id }, { userId: value.userId }],
             },
         });
-        console.log("------------777777", checkUserInEvent);
+
         const check = !!checkUserInEvent;
 
         if (check) {
@@ -99,12 +100,57 @@ exports.createEventJoin = async (req, res, next) => {
             });
             res.status(200).json({ eventId: event.eventId });
         }
-
-        console.log(
-            checkUserInEvent,
-            "ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss"
-        );
     } catch (err) {
         next(err);
     }
+};
+exports.leaveJointEvent = async (req, res, next) => {
+    try {
+        const value = req.params;
+        console.log(value);
+        value.userId = req.user.id;
+
+        const destroyUser = await JoinEventUser.destroy({
+            where: {
+                [Op.and]: [{ eventId: +value.id }, { userId: value.userId }],
+            },
+        });
+        res.status(200).json(destroyUser);
+    } catch (err) {
+        next(err);
+    }
+};
+exports.eventJoined = async (req, res, next) => {
+    try {
+        const value = req.params;
+        value.userId = req.user.id;
+        console.log("req.params======>", req.params);
+        console.log("value======>", value);
+
+        const userJoined = await JoinEventUser.findOne({
+            where: {
+                [Op.and]: [{ eventId: +value.id }, { userId: value.userId }],
+            },
+        });
+
+        res.status(200).json(!!userJoined);
+    } catch (err) {
+        next(err);
+    }
+};
+exports.deleteEvent = async (req, res, next) => {
+    // try {
+    //     const value = req.params;
+    //     value.userId = req.user.id;
+    //     console.log("req.params======>", req.params);
+    //     console.log("value======>", value);
+    //     const userJoined = await JoinEventUser.findOne({
+    //         where: {
+    //             [Op.and]: [{ eventId: +value.id }, { userId: value.userId }],
+    //         },
+    //     });
+    //     res.status(200).json(!!userJoined);
+    // } catch (err) {
+    //     next(err);
+    // }
 };

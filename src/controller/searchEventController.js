@@ -1,7 +1,7 @@
-const { Event } = require("../models");
+const { Event, sequelize } = require("../models");
 const { Op } = require("sequelize");
 
-const Sequelize = require("sequelize");
+// const Sequelize = require("sequelize");
 
 exports.getSearch = async (req, res, next) => {
     try {
@@ -82,8 +82,8 @@ exports.getNearby = async (req, res, next) => {
         try {
             const locations = await Event.findAll({
                 attributes: ["id", "latitude", "longitude"],
-                where: Sequelize.where(
-                    Sequelize.literal(haversine),
+                where: sequelize.where(
+                    sequelize.literal(haversine),
                     "<=",
                     radius
                 ),
