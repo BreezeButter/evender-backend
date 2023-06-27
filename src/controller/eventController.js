@@ -70,7 +70,10 @@ exports.getJoinEventByUser = async (req, res, next) => {
 exports.getChatByEvent = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const chats = await Chat.findAll({ where: { eventId: id } });
+        const chats = await Chat.findAll({
+            where: { eventId: id },
+            include: User,
+        });
         res.status(200).json({ chats });
     } catch (err) {
         next(err);
