@@ -79,6 +79,7 @@ exports.updateEventDetail = async (req, res, next) => {
 exports.createEventJoin = async (req, res, next) => {
     try {
         const value = req.params;
+        console.log(value);
         value.userId = req.user.id;
         console.log("---->", value);
         const checkUserInEvent = await JoinEventUser.findOne({
@@ -86,6 +87,7 @@ exports.createEventJoin = async (req, res, next) => {
                 [Op.and]: [{ eventId: +value.id }, { userId: value.userId }],
             },
         });
+        console.log("------------777777", checkUserInEvent);
         const check = !!checkUserInEvent;
 
         if (check) {

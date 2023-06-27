@@ -72,7 +72,9 @@ exports.palaceProvince = async (req, res, next) => {
 
 exports.getNearby = async (req, res, next) => {
     try {
-        const { latitude, longitude, radius } = req.body;
+        const { latitude, longitude, radi } = req.body;
+
+        let radius = radi;
         const haversine = `(6371 * acos(cos(radians(${latitude})) * 
     cos(radians(latitude)) * cos(radians(longitude) - radians(${longitude})) +
     sin(radians(${latitude})) * sin(radians(latitude))))`;
@@ -98,8 +100,7 @@ exports.getNearby = async (req, res, next) => {
                 },
             });
 
-            console.log("#################", result);
-            res.json(result);
+            res.status(200).json(result);
         } catch (error) {
             console.error(error);
             res.status(500).json({ error: "Internal server error" });
