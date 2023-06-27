@@ -1,5 +1,3 @@
-//// ###### MODEL  : USER #######/////
-
 module.exports = (sequelize, DataTypes) => {
     const Event = sequelize.define(
         "Event",
@@ -14,18 +12,20 @@ module.exports = (sequelize, DataTypes) => {
             description: {
                 type: DataTypes.STRING,
             },
-            location: {
+            placeName: {
                 type: DataTypes.STRING,
-                allowNull: false,
-                validate: {
-                    notEmpty: true,
-                },
+            },
+            placeProvince: {
+                type: DataTypes.STRING,
+            },
+            placeContry: {
+                type: DataTypes.STRING,
             },
             latitude: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.DECIMAL(16, 10),
             },
             longitude: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.DECIMAL(16, 10),
             },
             placeId: {
                 type: DataTypes.STRING,
@@ -82,8 +82,8 @@ module.exports = (sequelize, DataTypes) => {
                 name: "eventCategoryId",
                 allowNull: false,
             },
-            onDelete: "CASCADE",
-            onUpdate: "CASCADE",
+            onDelete: "RESTRICT",
+            onUpdate: "RESTRICT",
         });
 
         Event.hasMany(models.JoinEventUser, {
