@@ -17,6 +17,7 @@ exports.getAllEvents = async (req, res, next) => {
 
 exports.createEvent = async (req, res, next) => {
     try {
+        // console.log(req.body);
         const id = req.user.id;
         const { title, description, dateStart, dateEnd, capacity, lat,
              lng,
@@ -41,7 +42,7 @@ exports.createEvent = async (req, res, next) => {
         const event = await Event.create({
             title,
             description,
-            placeProvince,
+            location,
             dateStart,
             dateEnd,
             capacity,
@@ -58,7 +59,13 @@ exports.createEvent = async (req, res, next) => {
             placeCountry,
            
         });
-        // console.log({latitude ,longitude})
+
+        const modifyEvent = JSON.parse(JSON.stringify(event));
+
+        const result = await JoinEventUser.create({
+            eventId: modifyEvent.id,
+            userId: modifyEvent.userId,
+        });
         res.status(200).json({ message: "create sucessfully" });
     } catch (err) {
         next(err);
