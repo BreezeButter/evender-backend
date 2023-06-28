@@ -18,14 +18,16 @@ exports.getAllEvents = async (req, res, next) => {
 exports.createEvent = async (req, res, next) => {
     try {
         const id = req.user.id;
-        const {
-            title,
-            description,
+        const { title, description, dateStart, dateEnd, capacity, lat,
+             lng,
+            placeId,
+            placeName,
             placeProvince,
-            dateStart,
-            dateEnd,
-            capacity,
-        } = req.body;
+            placeCountry,} =
+            req.body;
+
+            console.log(req.body)
+
         const result1 = cloudinary.uploader.upload(req.files[0].path);
         const result2 = cloudinary.uploader.upload(req.files[1].path);
         const result3 = cloudinary.uploader.upload(req.files[2].path);
@@ -33,6 +35,8 @@ exports.createEvent = async (req, res, next) => {
         const image1 = resultAll[0].secure_url;
         const image2 = resultAll[1].secure_url;
         const image3 = resultAll[2].secure_url;
+
+        
 
         const event = await Event.create({
             title,
@@ -46,9 +50,15 @@ exports.createEvent = async (req, res, next) => {
             image3,
             userId: id,
             eventCategoryId: 1,
-            latitude: 1,
-            longitude: 1,
+            latitude: lat,
+            longitude: lng,
+            placeId,
+            placeName,
+            placeProvince,
+            placeCountry,
+           
         });
+        // console.log({latitude ,longitude})
         res.status(200).json({ message: "create sucessfully" });
     } catch (err) {
         next(err);
