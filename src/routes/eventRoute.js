@@ -16,3 +16,11 @@ router.post(
 router.get("/getNextEvent", authenticate, eventController.getNextEvent);
 
 module.exports = router;
+
+router.get(
+    "/getJoinEventByUser",
+    authenticate,
+    eventController.getJoinEventByUser
+);
+
+router.get("/getChatByEvent/:id", eventController.getChatByEvent);

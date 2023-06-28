@@ -1,5 +1,5 @@
 const fs = require("fs");
-const { Event, JoinEventUser, User } = require("../models");
+const { Event, JoinEventUser, User, Chat } = require("../models");
 const cloudinary = require("../config/cloudinary");
 
 exports.getAllEvents = async (req, res, next) => {
@@ -70,6 +70,30 @@ exports.getNextEvent = async (req, res, next) => {
         });
         // console.log(result);
         res.status(200).json(user);
+    } catch (err) {
+        next(err);
+    }
+};
+exports.getJoinEventByUser = async (req, res, next) => {
+    try {
+        const id = req.user.id;
+        const events = await JoinEventUser.findAll({
+            where: { userId: id },
+        });
+        res.status(200).json({ events });
+    } catch (err) {
+        next(err);
+    }
+};
+
+exports.getChatByEvent = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const chats = await Chat.findAll({
+            where: { eventId: id },
+            include: User,
+        });
+        res.status(200).json({ chats });
     } catch (err) {
         next(err);
     }
