@@ -21,11 +21,8 @@ io.use((socket, next) => {
 
 io.on("connection", (socket) => {
     socket.on("joinRoom", (roomName) => {
-        console.log(
-            socket.rooms,
-            "############################################"
-        );
         socket.join(roomName);
+
         console.log(
             socket.rooms,
             "############################################"
