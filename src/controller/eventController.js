@@ -19,15 +19,21 @@ exports.createEvent = async (req, res, next) => {
     try {
         // console.log(req.body);
         const id = req.user.id;
-        const { title, description, dateStart, dateEnd, capacity, lat,
-             lng,
+        const {
+            title,
+            description,
+            dateStart,
+            dateEnd,
+            capacity,
+            lat,
+            lng,
             placeId,
             placeName,
             placeProvince,
-            placeCountry,} =
-            req.body;
+            placeCountry,
+        } = req.body;
 
-            console.log(req.body)
+        console.log(req.body);
 
         const result1 = cloudinary.uploader.upload(req.files[0].path);
         const result2 = cloudinary.uploader.upload(req.files[1].path);
@@ -37,12 +43,9 @@ exports.createEvent = async (req, res, next) => {
         const image2 = resultAll[1].secure_url;
         const image3 = resultAll[2].secure_url;
 
-        
-
         const event = await Event.create({
             title,
             description,
-            location,
             dateStart,
             dateEnd,
             capacity,
@@ -57,7 +60,6 @@ exports.createEvent = async (req, res, next) => {
             placeName,
             placeProvince,
             placeCountry,
-           
         });
 
         const modifyEvent = JSON.parse(JSON.stringify(event));

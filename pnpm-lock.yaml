@@ -1,16 +1,12 @@
 lockfileVersion: '6.0'
 
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
-
 dependencies:
-  '@socket.io/admin-ui':
-    specifier: ^0.5.1
-    version: 0.5.1(socket.io@4.6.2)
   '@react-google-maps/api':
     specifier: ^2.18.1
     version: 2.18.1(react-dom@18.2.0)(react@18.2.0)
+  '@socket.io/admin-ui':
+    specifier: ^0.5.1
+    version: 0.5.1(socket.io@4.6.2)
   bcryptjs:
     specifier: ^2.4.3
     version: 2.4.3
@@ -1770,3 +1766,7 @@ packages:
   /yallist@4.0.0:
     resolution: {integrity: sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==}
     dev: false
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
