@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
         {
             userName: {
                 type: DataTypes.STRING,
+                defaultValue: "เขียวเป็นลูกค้าใหม่",
             },
 
             firstName: {
