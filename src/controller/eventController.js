@@ -1,5 +1,5 @@
 const fs = require("fs");
-const { Event, JoinEventUser, User } = require("../models");
+const { Event, JoinEventUser, User, Chat } = require("../models");
 const cloudinary = require("../config/cloudinary");
 
 exports.getAllEvents = async (req, res, next) => {
@@ -18,8 +18,14 @@ exports.getAllEvents = async (req, res, next) => {
 exports.createEvent = async (req, res, next) => {
     try {
         const id = req.user.id;
-        const { title, description, location, dateStart, dateEnd, capacity } =
-            req.body;
+        const {
+            title,
+            description,
+            placeProvince,
+            dateStart,
+            dateEnd,
+            capacity,
+        } = req.body;
         const result1 = cloudinary.uploader.upload(req.files[0].path);
         const result2 = cloudinary.uploader.upload(req.files[1].path);
         const result3 = cloudinary.uploader.upload(req.files[2].path);
@@ -31,7 +37,7 @@ exports.createEvent = async (req, res, next) => {
         const event = await Event.create({
             title,
             description,
-            location,
+            placeProvince,
             dateStart,
             dateEnd,
             capacity,
@@ -52,5 +58,43 @@ exports.createEvent = async (req, res, next) => {
             fs.unlinkSync(req.files[1].path);
             fs.unlinkSync(req.files[2].path);
         }
+    }
+};
+
+exports.getNextEvent = async (req, res, next) => {
+    try {
+        const id = req.user.id;
+        const user = await JoinEventUser.findAll({
+            where: { userId: id },
+            include: { model: Event },
+        });
+        // console.log(result);
+        res.status(200).json(user);
+    } catch (err) {
+        next(err);
+    }
+};
+exports.getJoinEventByUser = async (req, res, next) => {
+    try {
+        const id = req.user.id;
+        const events = await JoinEventUser.findAll({
+            where: { userId: id },
+        });
+        res.status(200).json({ events });
+    } catch (err) {
+        next(err);
+    }
+};
+
+exports.getChatByEvent = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const chats = await Chat.findAll({
+            where: { eventId: id },
+            include: User,
+        });
+        res.status(200).json({ chats });
+    } catch (err) {
+        next(err);
     }
 };

@@ -1,28 +1,79 @@
-const { Event, JoinEventUser,User } = require("../models");
+const { Event } = require("../models");
+const { Op } = require("sequelize");
 
-exports.getEventByCategory = async (req, res, next) => {
+exports.getSearch = async (req, res, next) => {
     try {
-        const { input } = req.params;
-        console.log("----->", input);
-        if (input == 1) {
-            const event = await Event.findAll({include:{ model: JoinEventUser,
-                include: User}} 
-            );
-            res.status(200).json(event);
-        } else {
-            const event = await Event.findAll({
-                where: { eventCategoryId: input },
-                include: [{ model: JoinEventUser, include: User }],
-            });
-            res.status(200).json(event);
+        const value = req.body;
+
+        let whereOp = {};
+        let whereOptitle = {};
+        let whereCondition = {};
+
+        if (value.eventCategoryId) {
+            whereOp.eventCategoryId = +value.eventCategoryId;
         }
+        if (value.placeProvince) {
+            whereOp.placeProvince = value.placeProvince;
+        }
+        if (value.dateStart) {
+            whereCondition.date_start = {
+                [Op.gte]: new Date(value.dateStart),
+            };
+        }
+        if (value.dateEnd) {
+            whereCondition.date_end = {
+                [Op.lte]: new Date(value.dateEnd),
+            };
+        }
+        if (value.box) {
+            whereOptitle = {
+                [Op.or]: [
+                    { placeName: { [Op.like]: `%${value.box}%` } },
+                    { title: { [Op.like]: `%${value.box}%` } },
+                ],
+            };
+        }
+
+        const whereQuery = {
+            ...whereOp,
+            ...whereOptitle,
+            ...whereCondition,
+        };
+
+        const searchOutput = await Event.findAll({
+            where: whereQuery,
+        });
+
+        res.status(200).json(searchOutput);
     } catch (err) {
         next(err);
     }
 };
 
+exports.palaceProvince = async (req, res, next) => {
+    try {
+        const placeOutput = await Event.findAll({
+            attributes: ["placeProvince"],
+            distinct: "placeProvince",
+        });
+        const distinctOutput = placeOutput.filter(
+            (v, i, a) =>
+                a.map((e) => e["placeProvince"]).indexOf(v["placeProvince"]) ===
+                i
+        );
 
+        res.status(200).json(distinctOutput);
+    } catch (err) {
+        next(err);
+    }
+};
 
+exports.getNearby = async (req, res, next) => {
+    try {
+        const { lat, lag } = req.body;
 
-
-
+        res.status(200).json(distinctOutput);
+    } catch (err) {
+        next(err);
+    }
+};
