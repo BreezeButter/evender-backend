@@ -4,7 +4,7 @@ const { Chat } = require("./models");
 
 const io = new Server(server, {
     cors: {
-        origin: ["http://localhost:5173"],
+        origin: "*",
         credentials: true,
         methods: ["GET", "POST"],
     },
@@ -43,5 +43,5 @@ io.on("connection", (socket) => {
     socket.on("disconnect", () => {});
 });
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8888;
 server.listen(port, () => console.log(`server running on port: ${port}`));
