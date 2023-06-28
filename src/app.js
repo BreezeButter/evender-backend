@@ -9,8 +9,6 @@ const http = require("http");
 const eventDetailRoute = require("./routes/eventDetailRoute");
 const notFoundMiddleware = require("./middlewares/notFound");
 const errorMiddleware = require("./middlewares/error");
-const eventRoute = require("./routes/eventRoute");
-const eventDetailRoute = require("./routes/eventDetailRoute");
 const authRoute = require("./routes/auth-route");
 const searchRoute = require("./routes/searchRoute");
 const userRoute = require("./routes/user-route");
@@ -41,10 +39,10 @@ app.use("/eventdetails", eventDetailRoute);
 app.use("/search", searchRoute);
 app.use("/user", userRoute);
 
-// app.use(notFoundMiddleware);
-// app.use(errorMiddleware);
+app.use(notFoundMiddleware);
+app.use(errorMiddleware);
 
-// const port = process.env.PORT || 8000;
+// const port = process.env.PORT || 8000;q
 // app.listen(port, () => console.log("server running on port " + port));
 
 module.exports = server;
