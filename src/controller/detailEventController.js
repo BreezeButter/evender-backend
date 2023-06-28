@@ -139,18 +139,19 @@ exports.eventJoined = async (req, res, next) => {
     }
 };
 exports.deleteEvent = async (req, res, next) => {
-    // try {
-    //     const value = req.params;
-    //     value.userId = req.user.id;
-    //     console.log("req.params======>", req.params);
-    //     console.log("value======>", value);
-    //     const userJoined = await JoinEventUser.findOne({
-    //         where: {
-    //             [Op.and]: [{ eventId: +value.id }, { userId: value.userId }],
-    //         },
-    //     });
-    //     res.status(200).json(!!userJoined);
-    // } catch (err) {
-    //     next(err);
-    // }
+    try {
+        const value = req.params;
+        value.userId = req.user.id;
+        console.log("value======>", value);
+        const eventDel = await Event.destroy({
+            where: {
+                [Op.and]: [{ id: +value.id }, { userId: value.userId }],
+            },
+        });
+
+        console.log("Delsuccess", eventDel);
+        res.status(200).json(eventDel);
+    } catch (err) {
+        next(err);
+    }
 };

@@ -10,7 +10,7 @@ router.get("/:id", detailEventController.getDetailUserById);
 router.get("/user/:id", detailEventController.getUserHostEventById);
 router.post("/:id", authenticate, detailEventController.createEventJoin);
 router.delete("/:id", authenticate, detailEventController.leaveJointEvent);
-router.delete("/:id", authenticate, detailEventController.deleteEvent);
+router.delete("/delevent/:id", authenticate, detailEventController.deleteEvent);
 router.put(
     "/updateDetailEvent/:id",
     upload.array("image"),

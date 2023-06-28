@@ -242,6 +242,7 @@ sequelize
             { id: 9, userId: 5, eventId: 3 },
             { id: 10, userId: 1, eventId: 4 },
             { id: 11, userId: 3, eventId: 4 },
+            { id: 12, userId: 5, eventId: 4 },
         ]);
     })
 

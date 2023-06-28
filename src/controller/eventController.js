@@ -44,6 +44,13 @@ exports.createEvent = async (req, res, next) => {
             latitude: 1,
             longitude: 1,
         });
+
+        const modifyEvent = JSON.parse(JSON.stringify(event));
+
+        const result = await JoinEventUser.create({
+            eventId: modifyEvent.id,
+            userId: modifyEvent.userId,
+        });
         res.status(200).json({ message: "create sucessfully" });
     } catch (err) {
         next(err);

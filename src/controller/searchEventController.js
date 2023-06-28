@@ -152,11 +152,17 @@ exports.palaceProvince = async (req, res, next) => {
             attributes: ["placeProvince"],
             distinct: "placeProvince",
         });
+
         const distinctOutput = placeOutput.filter(
             (v, i, a) =>
                 a.map((e) => e["placeProvince"]).indexOf(v["placeProvince"]) ===
                 i
         );
+
+        // Sort the distinctOutput array in alphabetical order
+        // distinctOutput.sort((a, b) => {
+        //     return a.placeProvince.localeCompare(b.placeProvince);
+        // });
 
         res.status(200).json(distinctOutput);
     } catch (err) {
