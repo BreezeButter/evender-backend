@@ -40,3 +40,17 @@ exports.getUserHostEventById = async (req, res, next) => {
         next(err);
     }
 };
+
+// exports.fetchUser = async (req, res, next) => {
+//     try {
+//         const { id } = req.params;
+//         console.log(HELLLO, id);
+//         const userProfile = await User.findOne({
+//             where: { id: id },
+//         });
+
+//         res.status(200).json(userProfile);
+//     } catch (err) {
+//         next(err);
+//     }
+// };
