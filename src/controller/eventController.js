@@ -18,8 +18,8 @@ exports.getAllEvents = async (req, res, next) => {
 exports.createEvent = async (req, res, next) => {
     try {
         const id = req.user.id;
-        const { title, description, dateStart, dateEnd, capacity, latitude: lat,
-            longitude: lng,
+        const { title, description, dateStart, dateEnd, capacity, lat,
+             lng,
             placeId,
             placeName,
             placeProvince,
@@ -35,6 +35,8 @@ exports.createEvent = async (req, res, next) => {
         const image1 = resultAll[0].secure_url;
         const image2 = resultAll[1].secure_url;
         const image3 = resultAll[2].secure_url;
+
+        
 
         const event = await Event.create({
             title,
@@ -55,6 +57,7 @@ exports.createEvent = async (req, res, next) => {
             placeCountry,
            
         });
+        // console.log({latitude ,longitude})
         res.status(200).json({ message: "create sucessfully" });
     } catch (err) {
         next(err);

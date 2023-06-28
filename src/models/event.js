@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
             placeProvince: {
                 type: DataTypes.STRING,
             },
-            placeContry: {
+            placeCountry: {
                 type: DataTypes.STRING,
             },
             latitude: {
