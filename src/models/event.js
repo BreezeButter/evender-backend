@@ -1,5 +1,3 @@
-//// ###### MODEL  : USER #######/////
-
 module.exports = (sequelize, DataTypes) => {
     const Event = sequelize.define(
         "Event",
@@ -20,14 +18,14 @@ module.exports = (sequelize, DataTypes) => {
             placeProvince: {
                 type: DataTypes.STRING,
             },
-            placeContry: {
+            placeCountry: {
                 type: DataTypes.STRING,
             },
             latitude: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.DECIMAL(16, 10),
             },
             longitude: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.DECIMAL(16, 10),
             },
             placeId: {
                 type: DataTypes.STRING,
@@ -35,6 +33,25 @@ module.exports = (sequelize, DataTypes) => {
             dateStart: {
                 type: DataTypes.DATE,
                 allowNull: false,
+                validate: {
+                    notEmpty: true,
+                },
+            },
+            productDefaultPrice: {
+                type: DataTypes.STRING,
+                validate: {
+                    notEmpty: true,
+                },
+            },
+            paymentLinkUrl: {
+                type: DataTypes.STRING,
+                validate: {
+                    notEmpty: true,
+                },
+            },
+            isBoost: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0,
                 validate: {
                     notEmpty: true,
                 },
@@ -111,6 +128,14 @@ module.exports = (sequelize, DataTypes) => {
             },
             onDelete: "CASCADE",
             onUpdate: "CASCADE",
+        });
+        Event.hasMany(models.Transection, {
+            foreignKey: {
+                name: "eventId",
+                allowNull: false,
+            },
+            onDelete: "RESTRICT",
+            onUpdate: "RESTRICT",
         });
     };
 

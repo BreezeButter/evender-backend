@@ -3,8 +3,6 @@ const router = express.Router();
 const upload = require("../middlewares/upload");
 const detailEventController = require("../controller/detailEventController");
 const authenticate = require("../middlewares/authenticate");
-
-// router.get("/detailEvent", detailEventController);
 router.get("/:id", detailEventController.getDetailUserById);
 router.get("/user/:id", detailEventController.getUserHostEventById);
 router.post("/:id", authenticate, detailEventController.createEventJoin);

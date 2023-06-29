@@ -1,20 +1,24 @@
 const express = require("express");
-const eventController = require("../controller/eventController");
 const authenticate = require("../middlewares/authenticate");
+
+const adminController = require("../controller/adminController");
 const upload = require("../middlewares/upload");
 const paymentMiddleware = require("../middlewares/paymentStripe");
 
 const router = express.Router();
 
-router.get("/getAllEvents", eventController.getAllEvents);
 router.post(
-    "/createEvent",
+    "/adminCreateEvent",
     authenticate,
     upload.array("image"),
     paymentMiddleware,
-    eventController.createEvent
+    adminController.createEvent
 );
-
-router.get("/getNextEvent", authenticate, eventController.getNextEvent);
+router.get("/showAllEvent", adminController.showEvent);
+router.delete(
+    "/adminDeleteEvent/:id",
+    authenticate,
+    adminController.deleteEvent
+);
 
 module.exports = router;

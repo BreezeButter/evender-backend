@@ -17,8 +17,8 @@ module.exports = async (req, res, next) => {
         const user = await User.findOne({
             attributes: { exclude: ["password", "createdAt", "updatedAt"] },
             where: {
-                id: payload.id
-            }
+                id: payload.id,
+            },
         });
         if (!user) {
             createError("unauthorized", 401);

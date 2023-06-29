@@ -12,12 +12,12 @@ const registerSchema = Joi.object({
         .valid(Joi.ref("password"))
         .trim()
         .required()
-        .strip()
+        .strip(),
 });
 
 const loginSchema = Joi.object({
     email: Joi.string().required(),
-    password: Joi.string().required()
+    password: Joi.string().required(),
 });
 
 exports.validateRegister = (input) => {
