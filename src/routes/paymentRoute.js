@@ -4,12 +4,12 @@ const paymentController = require("../controller/paymentController");
 const router = express.Router();
 const paymentMiddleware = require("../middlewares/paymentStripe");
 
-//router.get("/getAllEvents", eventController.getAllEvents);
 router.post(
     "/create-payment",
-    paymentMiddleware,
+    //paymentMiddleware,
     //authenticate,
     paymentController.createPayment
 );
+router.get("/session", paymentController.payment);
 
 module.exports = router;

@@ -11,7 +11,7 @@ router.post(
     "/adminCreateEvent",
     authenticate,
     upload.array("image"),
-    paymentMiddleware,
+
     adminController.createEvent
 );
 router.get("/showAllEvent", adminController.showEvent);

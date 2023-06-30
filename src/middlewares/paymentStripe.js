@@ -7,13 +7,13 @@ module.exports = async (req, res, next) => {
     try {
         const product = await stripe.products.create({
             name: req.body.title,
-
             default_price_data: {
                 currency: "USD",
                 unit_amount_decimal: "249.00",
             },
         });
         console.log("######product.default_price######", product.default_price);
+        console.log("#####product#####", product);
 
         const paymentLink = await stripe.paymentLinks.create({
             line_items: [
@@ -24,7 +24,15 @@ module.exports = async (req, res, next) => {
                 },
             ],
         });
-        console.log("######paymentLink########", paymentLink.url);
+
+        const customer = await stripe.customers.create(`${product.id}`, {
+            metadata: {
+                order_id: product.default_price,
+            },
+
+            //paymentLinkUrl:paymentLink.url
+        });
+        console.log("######customer########", customer);
 
         req.body = {
             ...req.body,
