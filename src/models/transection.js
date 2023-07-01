@@ -1,5 +1,3 @@
-//// ###### MODEL  : USER #######/////
-
 module.exports = (sequelize, DataTypes) => {
     const Transection = sequelize.define(
         "Transection",
@@ -12,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
                 },
             },
             amount: {
-                type: DataTypes.ENUM("35", "50", "100"),
+                type: DataTypes.INTEGER,
                 allowNull: false,
                 validate: {
                     notEmpty: true,
@@ -23,10 +21,19 @@ module.exports = (sequelize, DataTypes) => {
             underscored: true,
         }
     );
+
     Transection.associate = (models) => {
         Transection.belongsTo(models.User, {
             foreignKey: {
                 name: "userId",
+                allowNull: false,
+            },
+            onDelete: "RESTRICT",
+            onUpdate: "RESTRICT",
+        });
+        Transection.belongsTo(models.Event, {
+            foreignKey: {
+                name: "eventId",
                 allowNull: false,
             },
             onDelete: "RESTRICT",
