@@ -45,8 +45,8 @@ app.use("/payment", paymentRoute);
 //สองอันนี้ต้องอยู่ล่างสุดเสมอ
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);
-const port = process.env.PORT || 8000;
-app.listen(port, () => console.log("server running on port " + port));
+// const port = process.env.PORT || 8000;
+// app.listen(port, () => console.log("server running on port " + port));
 
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);
