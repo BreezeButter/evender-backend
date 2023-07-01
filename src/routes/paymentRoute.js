@@ -11,5 +11,6 @@ router.post(
     paymentController.createPayment
 );
 router.get("/session", paymentController.payment);
+//router.patch("/boostEvent", authenticate, paymentController.upBoostPost);
 
 module.exports = router;
