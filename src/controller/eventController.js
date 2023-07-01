@@ -99,6 +99,7 @@ exports.getJoinEventByUser = async (req, res, next) => {
         const id = req.user.id;
         const events = await JoinEventUser.findAll({
             where: { userId: id },
+            include: Event,
         });
         res.status(200).json({ events });
     } catch (err) {
