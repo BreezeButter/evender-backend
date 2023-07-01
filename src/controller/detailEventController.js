@@ -33,27 +33,31 @@ exports.getUserHostEventById = async (req, res, next) => {
 
 exports.updateEventDetail = async (req, res, next) => {
     // res.json("hello");
-    console.log(req.file);
+    // console.log(req.file);
+   
     const { id } = req.params;
-    const {
-        title,
-        description,
-        placeProvince,
-        dateStart,
-        dateEnd,
-        capacity,
-        image1,
-        // image2,
-        // image3,
-    } = req.body;
-    console.log(req.files);
+    // const {
+    //     title,
+    //     description,
+    //     dateStart,
+    //     dateEnd,
+    //     capacity,
+    //     lat,
+    //     lng,
+    //     placeId,
+    //     placeName,
+    //     placeProvince,
+    //     placeCountry,
+    // } = req.body;
+
+    // console.log(req.files);
     let image = [];
     for (let file of req.files) {
         const result = await cloudinary.uploader.upload(file.path);
         image.push(result.secure_url);
         console.log(result);
     }
-    console.log(typeof req.body.dateStart, req.body.dateStart);
+    // console.log(typeof req.body.dateStart, req.body.dateStart);
     Event.update(
         {
             title: req.body.title,
@@ -62,6 +66,13 @@ exports.updateEventDetail = async (req, res, next) => {
             dateStart: req.body.dateStart,
             dateEnd: req.body.dateEnd,
             capacity: req.body.capacity,
+            latitude : req.body.lat,
+            longitude: req.body.lng,
+            placeId : req.body.placeId,
+            placeName : req.body.placeName,
+            placeCountry : req.body.placeCountry,
+            
+
             image1: image[0],
             image2: image[1],
             image3: image[2],
@@ -75,6 +86,9 @@ exports.updateEventDetail = async (req, res, next) => {
             console.log(err);
             next(err);
         });
+
+        console.log(Event.update)
+
 };
 
 exports.createEventJoin = async (req, res, next) => {
