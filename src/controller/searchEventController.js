@@ -1,4 +1,4 @@
-const { Event, sequelize } = require("../models");
+const { Event, JoinEventUser, User, sequelize } = require("../models");
 const { Op } = require("sequelize");
 
 // // const Sequelize = require("sequelize");
@@ -220,6 +220,8 @@ exports.getSearch = async (req, res, next) => {
         if (Object.keys(whereLocation).length === 0) {
             const searchOutput = await Event.findAll({
                 where: whereQuery,
+                include: { model: JoinEventUser, include: User },
+                order: [["isBoost", "DESC"]],
             });
 
             res.status(200).json(searchOutput);
@@ -244,6 +246,8 @@ exports.getSearch = async (req, res, next) => {
                     where: {
                         ...whereQuery,
                         id: { [Op.in]: eventIds },
+                        include: { model: JoinEventUser, include: User },
+                        order: [["isBoost", "DESC"]],
                     },
                 });
 
