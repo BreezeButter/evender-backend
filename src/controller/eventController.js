@@ -7,6 +7,7 @@ exports.getAllEvents = async (req, res, next) => {
         console.log("hello");
         const events = await Event.findAll({
             include: { model: JoinEventUser, include: User },
+            order: [["isBoost", "DESC"]],
         });
         // console.log(result);
         res.status(200).json({ events });
