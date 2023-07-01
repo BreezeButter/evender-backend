@@ -11,7 +11,9 @@ const notFoundMiddleware = require("./middlewares/notFound");
 const errorMiddleware = require("./middlewares/error");
 const authRoute = require("./routes/auth-route");
 const searchRoute = require("./routes/searchRoute");
+const adminRoute = require("../src/routes/adminRoute");
 const userRoute = require("./routes/user-route");
+const paymentRoute = require("./routes/paymentRoute");
 
 const app = express();
 const server = http.createServer(app);
@@ -35,9 +37,16 @@ app.use(express.json());
 
 app.use("/auth", authRoute);
 app.use("/event", eventRoute);
-app.use("/eventdetails", eventDetailRoute);
 app.use("/search", searchRoute);
 app.use("/user", userRoute);
+app.use("/admin", adminRoute);
+app.use("/search", searchRoute);
+app.use("/payment", paymentRoute);
+//สองอันนี้ต้องอยู่ล่างสุดเสมอ
+app.use(notFoundMiddleware);
+app.use(errorMiddleware);
+// const port = process.env.PORT || 8000;
+// app.listen(port, () => console.log("server running on port " + port));
 
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);

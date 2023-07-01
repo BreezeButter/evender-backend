@@ -20,6 +20,7 @@ exports.register = async (req, res, next) => {
             createError("email is already exist", 400);
         }
         value.password = await bcryptService.hash(value.password);
+        value.email.toLowerCase();
         value.email.toLowerCase;
         const user = await User.create(value);
         const accessToken = tokenService.sign({ id: user.id });
@@ -35,6 +36,7 @@ exports.login = async (req, res, next) => {
         // console.log(value,"value")
         const user = await User.findOne({
             where: {
+                email: value.email.toLowerCase(),
                 email: value.email,
             },
         });
