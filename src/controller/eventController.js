@@ -1,5 +1,5 @@
 const fs = require("fs");
-const { Event, JoinEventUser, User } = require("../models");
+const { Event, JoinEventUser, User, Chat } = require("../models");
 const cloudinary = require("../config/cloudinary");
 
 exports.getAllEvents = async (req, res, next) => {
@@ -7,6 +7,7 @@ exports.getAllEvents = async (req, res, next) => {
         console.log("hello");
         const events = await Event.findAll({
             include: { model: JoinEventUser, include: User },
+            order: [["isBoost", "DESC"]],
         });
         // console.log(result);
         res.status(200).json({ events });
@@ -17,15 +18,24 @@ exports.getAllEvents = async (req, res, next) => {
 
 exports.createEvent = async (req, res, next) => {
     try {
+        // console.log(req.body);
         const id = req.user.id;
         const {
             title,
             description,
-            placeProvince,
             dateStart,
             dateEnd,
             capacity,
+            lat,
+            lng,
+            placeId,
+            placeName,
+            placeProvince,
+            placeCountry,
         } = req.body;
+
+        console.log(req.body);
+
         const result1 = cloudinary.uploader.upload(req.files[0].path);
         const result2 = cloudinary.uploader.upload(req.files[1].path);
         const result3 = cloudinary.uploader.upload(req.files[2].path);
@@ -37,7 +47,6 @@ exports.createEvent = async (req, res, next) => {
         const event = await Event.create({
             title,
             description,
-            placeProvince,
             dateStart,
             dateEnd,
             capacity,
@@ -46,8 +55,19 @@ exports.createEvent = async (req, res, next) => {
             image3,
             userId: id,
             eventCategoryId: 1,
-            latitude: 1,
-            longitude: 1,
+            latitude: lat,
+            longitude: lng,
+            placeId,
+            placeName,
+            placeProvince,
+            placeCountry,
+        });
+
+        const modifyEvent = JSON.parse(JSON.stringify(event));
+
+        const result = await JoinEventUser.create({
+            eventId: modifyEvent.id,
+            userId: modifyEvent.userId,
         });
         res.status(200).json({ message: "create sucessfully" });
     } catch (err) {
@@ -70,6 +90,30 @@ exports.getNextEvent = async (req, res, next) => {
         });
         // console.log(result);
         res.status(200).json(user);
+    } catch (err) {
+        next(err);
+    }
+};
+exports.getJoinEventByUser = async (req, res, next) => {
+    try {
+        const id = req.user.id;
+        const events = await JoinEventUser.findAll({
+            where: { userId: id },
+        });
+        res.status(200).json({ events });
+    } catch (err) {
+        next(err);
+    }
+};
+
+exports.getChatByEvent = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const chats = await Chat.findAll({
+            where: { eventId: id },
+            include: User,
+        });
+        res.status(200).json({ chats });
     } catch (err) {
         next(err);
     }

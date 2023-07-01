@@ -71,6 +71,25 @@ module.exports = (sequelize, DataTypes) => {
                     notEmpty: true,
                 },
             },
+            productDefaultPrice: {
+                type: DataTypes.STRING,
+                validate: {
+                    notEmpty: true,
+                },
+            },
+            paymentLinkUrl: {
+                type: DataTypes.STRING,
+                validate: {
+                    notEmpty: true,
+                },
+            },
+            isBoost: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0,
+                validate: {
+                    notEmpty: true,
+                },
+            },
             image1: {
                 type: DataTypes.STRING,
             },

@@ -6,6 +6,7 @@ const authenticate = require("../middlewares/authenticate");
 router = express.Router();
 
 router.get("/allevent/:id", userController.getUserHostEventById);
+router.get("/fetchUser/:id", userController.fetchUser);
 router.put(
     "/updateUser",
     authenticate,
