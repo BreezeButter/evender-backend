@@ -37,6 +37,25 @@ module.exports = (sequelize, DataTypes) => {
                     notEmpty: true,
                 },
             },
+            productDefaultPrice: {
+                type: DataTypes.STRING,
+                validate: {
+                    notEmpty: true,
+                },
+            },
+            paymentLinkUrl: {
+                type: DataTypes.STRING,
+                validate: {
+                    notEmpty: true,
+                },
+            },
+            isBoost: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0,
+                validate: {
+                    notEmpty: true,
+                },
+            },
             dateEnd: {
                 type: DataTypes.DATE,
                 allowNull: false,
@@ -128,6 +147,14 @@ module.exports = (sequelize, DataTypes) => {
             },
             onDelete: "CASCADE",
             onUpdate: "CASCADE",
+        });
+        Event.hasMany(models.Transection, {
+            foreignKey: {
+                name: "eventId",
+                allowNull: false,
+            },
+            onDelete: "RESTRICT",
+            onUpdate: "RESTRICT",
         });
     };
 
