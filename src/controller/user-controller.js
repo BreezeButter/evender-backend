@@ -4,9 +4,12 @@ const { User, Event } = require("../models");
 
 exports.updateUser = async (req, res, next) => {
     try {
+        console.log("HELLO")
         const { id } = req.user;
         const result = await uploadService.upload(req.file.path);
+        console.log("PATH#######", result)
         const { firstName, lastName, gender, bdate, aboutMe } = req.body;
+        console.log("DDDDDDD", req.body)
 
         const update = await User.update(
             {
