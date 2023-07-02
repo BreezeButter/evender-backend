@@ -21,7 +21,7 @@ exports.payment = async (req, res) => {
     console.log(session.status);
 
     if (session.payment_status !== "paid" || session.status !== "complete") {
-        createError("payment fail", 400);
+        createError("payment", 400);
     }
     const event = await Event.update(
         { isBoost: 1 },
