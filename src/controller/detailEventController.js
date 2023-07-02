@@ -34,7 +34,7 @@ exports.getUserHostEventById = async (req, res, next) => {
 exports.updateEventDetail = async (req, res, next) => {
     // res.json("hello");
     // console.log(req.file);
-   
+
     const { id } = req.params;
     // const {
     //     title,
@@ -66,12 +66,12 @@ exports.updateEventDetail = async (req, res, next) => {
             dateStart: req.body.dateStart,
             dateEnd: req.body.dateEnd,
             capacity: req.body.capacity,
-            latitude : req.body.lat,
+            latitude: req.body.lat,
             longitude: req.body.lng,
-            placeId : req.body.placeId,
-            placeName : req.body.placeName,
-            placeCountry : req.body.placeCountry,
-            
+            placeId: req.body.placeId,
+            placeName: req.body.placeName,
+            placeCountry: req.body.placeCountry,
+
 
             image1: image[0],
             image2: image[1],
@@ -87,7 +87,7 @@ exports.updateEventDetail = async (req, res, next) => {
             next(err);
         });
 
-        console.log(Event.update)
+    console.log(Event.update)
 
 };
 
