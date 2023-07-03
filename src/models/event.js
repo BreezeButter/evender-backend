@@ -92,6 +92,9 @@ module.exports = (sequelize, DataTypes) => {
             image3: {
                 type: DataTypes.STRING,
             },
+            icon: {
+                type: DataTypes.STRING,
+            },
         },
         {
             underscored: true,
