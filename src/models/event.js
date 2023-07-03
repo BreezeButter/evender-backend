@@ -49,13 +49,6 @@ module.exports = (sequelize, DataTypes) => {
                     notEmpty: true,
                 },
             },
-            isBoost: {
-                type: DataTypes.INTEGER,
-                defaultValue: 0,
-                validate: {
-                    notEmpty: true,
-                },
-            },
             dateEnd: {
                 type: DataTypes.DATE,
                 allowNull: false,
@@ -125,14 +118,6 @@ module.exports = (sequelize, DataTypes) => {
         });
 
         Event.hasMany(models.JoinEventUser, {
-            foreignKey: {
-                name: "eventId",
-                allowNull: false,
-            },
-            onDelete: "CASCADE",
-            onUpdate: "CASCADE",
-        });
-        Event.hasMany(models.EventReview, {
             foreignKey: {
                 name: "eventId",
                 allowNull: false,
