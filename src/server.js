@@ -40,8 +40,8 @@ io.on("connection", (socket) => {
         socket.to(input.room.toString()).emit("receiveMessage", input);
     });
 
-    socket.on("disconnect", () => {});
+    socket.on("disconnect", () => { });
 });
 
-const port = process.env.PORT || 8888;
+const port = process.env.PORT || 8000;
 server.listen(port, () => console.log(`server running on port: ${port}`));
