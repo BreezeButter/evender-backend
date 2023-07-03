@@ -31,12 +31,16 @@ io.on("connection", (socket) => {
 
     socket.on("sendMessage", async (input) => {
         console.log(socket.rooms);
-        console.log(input);
-        await Chat.create({
-            message: input.message,
-            userId: input.userId,
-            eventId: input.room,
-        });
+        console.log(input.message);
+        if (typeof input.message === "string") {
+            const result = await Chat.create({
+                message: input.message,
+                userId: input.userId,
+                eventId: input.room,
+            });
+            // console.log("DDDDDDDDDDDDDDDDDDD", result);
+        }
+
         socket.to(input.room.toString()).emit("receiveMessage", input);
     });
 
@@ -44,4 +48,6 @@ io.on("connection", (socket) => {
 });
 
 const port = process.env.PORT || 8000;
+
 server.listen(port, () => console.log(`server running on port: ${port}`));
+
