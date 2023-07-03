@@ -44,7 +44,7 @@ exports.payment = async (req, res) => {
 
 exports.createPayment = async (req, res) => {
     const payload = req.body;
-    console.log(req.headers.origin)
+
     const paymentBoostpost = await stripe.checkout.sessions.create({
         line_items: [
             {
