@@ -1,4 +1,4 @@
-const { JoinEventUser, User, Event } = require("../models");
+const { JoinEventUser, User, Event, Chat } = require("../models");
 const cloudinary = require("../config/cloudinary");
 const { where } = require("sequelize");
 const { Op } = require("sequelize");
@@ -85,8 +85,7 @@ exports.updateEventDetail = async (req, res, next) => {
             next(err);
         });
 
-    console.log(Event.update)
-
+    console.log(Event.update);
 };
 
 exports.createEventJoin = async (req, res, next) => {
@@ -104,13 +103,33 @@ exports.createEventJoin = async (req, res, next) => {
         const check = !!checkUserInEvent;
 
         if (check) {
-            res.status(200).json({ eventId: checkUserInEvent.eventId });
+            const chats = await Chat.findAll({
+                where: { eventId: +value.id },
+                include: User,
+            });
+
+            const events = await JoinEventUser.findAll({
+                where: { userId: id },
+                include: Event,
+            });
+
+            res.status(200).json({ events: events, chats: chats });
         } else {
-            const event = await JoinEventUser.create({
+            const join = await JoinEventUser.create({
                 eventId: value.id,
                 userId: value.userId,
             });
-            res.status(200).json({ eventId: event.eventId });
+
+            const chats = await Chat.findAll({
+                where: { eventId: +value.id },
+                include: User,
+            });
+
+            const events = await JoinEventUser.findAll({
+                where: { userId: value.userId },
+                include: Event,
+            });
+            res.status(200).json({ events: events, chats: chats });
         }
     } catch (err) {
         next(err);
