@@ -1,6 +1,6 @@
 const uploadService = require("../services/upload-service");
 const fs = require("fs");
-const { User, Event } = require("../models");
+const { User, Event, UserType } = require("../models");
 
 exports.updateUser = async (req, res, next) => {
     try {
@@ -50,6 +50,7 @@ exports.fetchUser = async (req, res, next) => {
         // console.log(HELLLO, id);
         const userProfile = await User.findOne({
             where: { id: id },
+            include: { model: UserType }
         });
 
         res.status(200).json(userProfile);
