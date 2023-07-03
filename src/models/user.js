@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
         {
             userName: {
                 type: DataTypes.STRING,
-                defaultValue: "เขียวเป็นลูกค้าใหม่",
+                defaultValue: "New member",
             },
 
             firstName: {
@@ -97,15 +97,6 @@ module.exports = (sequelize, DataTypes) => {
             onDelete: "CASCADE",
             onUpdate: "CASCADE",
         });
-        User.hasMany(models.EventReview, {
-            foreignKey: {
-                name: "userId",
-                allowNull: false,
-            },
-            onDelete: "CASCADE",
-            onUpdate: "CASCADE",
-        });
-
         User.hasMany(models.Transection, {
             foreignKey: {
                 name: "userId",
