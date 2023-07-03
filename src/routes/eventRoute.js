@@ -2,7 +2,6 @@ const express = require("express");
 const eventController = require("../controller/eventController");
 const authenticate = require("../middlewares/authenticate");
 const upload = require("../middlewares/upload");
-const paymentMiddleware = require("../middlewares/paymentStripe");
 
 const router = express.Router();
 
@@ -11,7 +10,6 @@ router.post(
     "/createEvent",
     authenticate,
     upload.array("image"),
-    paymentMiddleware,
     eventController.createEvent
 );
 
