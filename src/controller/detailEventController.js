@@ -71,8 +71,6 @@ exports.updateEventDetail = async (req, res, next) => {
             placeId: req.body.placeId,
             placeName: req.body.placeName,
             placeCountry: req.body.placeCountry,
-
-
             image1: image[0],
             image2: image[1],
             image3: image[2],

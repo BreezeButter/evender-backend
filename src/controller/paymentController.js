@@ -44,6 +44,7 @@ exports.payment = async (req, res) => {
 
 exports.createPayment = async (req, res) => {
     const payload = req.body;
+    console.log(req.headers.origin)
     const paymentBoostpost = await stripe.checkout.sessions.create({
         line_items: [
             {
@@ -53,8 +54,8 @@ exports.createPayment = async (req, res) => {
         ],
         mode: "payment",
         payment_method_types: ["card"],
-        success_url: `${YOUR_DOMAIN}/evender/success?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${YOUR_DOMAIN}/evender/event`,
+        success_url: `${req.headers.origin}/evender/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${req.headers.origin}/evender/event`,
         metadata: {
             event_id: payload.eventId,
             productDefaultPrice: payload.productDefaultPrice,
