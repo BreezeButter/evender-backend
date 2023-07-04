@@ -21,4 +21,8 @@ router.delete(
     adminController.deleteEvent
 );
 
+router.get("/showAllUser", adminController.showUser);
+router.patch("/adminBanUser/:id", adminController.banUser);
+router.patch("/adminUnBanUser/:id", adminController.unBanUser);
+
 module.exports = router;
