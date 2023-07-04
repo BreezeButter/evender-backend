@@ -93,12 +93,12 @@ exports.createEvent = async (req, res, next) => {
         res.status(200).json({ meg: "create sucessfully" });
     } catch (err) {
         next(err);
-    } finally {
-        if (req.files[0].path && req.files[1].path && req.files[2].path) {
-            fs.unlinkSync(req.files[0].path);
-            fs.unlinkSync(req.files[1].path);
-            fs.unlinkSync(req.files[2].path);
-        }
+        // } finally {
+        //     if (req.files[0].path && req.files[1].path && req.files[2].path) {
+        //         fs.unlinkSync(req.files[0].path);
+        //         fs.unlinkSync(req.files[1].path);
+        //         fs.unlinkSync(req.files[2].path);
+        //     }
     }
 };
 
