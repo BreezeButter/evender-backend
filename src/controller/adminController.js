@@ -149,3 +149,47 @@ exports.showEvent = async (req, res, next) => {
         next(error);
     }
 };
+
+exports.showUser = async (req, res, next) => {
+    try {
+        const isAdmin = req.user; // ข้อมูล user ที่ login / auth ส่งมาไห้
+        const showuser = await User.findAll();
+        res.json(showuser);
+    } catch (error) {
+        next(error);
+    }
+};
+
+exports.banUser = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const user = await User.update(
+            { status: 0 },
+            {
+                where: {
+                    id: id,
+                },
+            }
+        );
+        res.json({ message: "Ban user sussess" });
+    } catch (error) {
+        next(error);
+    }
+};
+
+exports.unBanUser = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const user = await User.update(
+            { status: 1 },
+            {
+                where: {
+                    id: id,
+                },
+            }
+        );
+        res.json({ message: "Unban user sussess" });
+    } catch (error) {
+        next(error);
+    }
+};

@@ -121,7 +121,7 @@ sequelize
                 aboutMe:
                     "Hi, I'm Michael Taylor. I love playing badminton and watching movies.",
                 status: true,
-                isAdmin: false,
+                isAdmin: true,
                 userTypeId: 1,
             },
         ]);
