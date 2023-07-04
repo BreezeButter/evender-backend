@@ -1,6 +1,6 @@
 const { JoinEventUser, User, Event, Chat } = require("../models");
 const cloudinary = require("../config/cloudinary");
-const { where } = require("sequelize");
+const { where, ValidationErrorItemOrigin } = require("sequelize");
 const { Op } = require("sequelize");
 
 exports.getDetailUserById = async (req, res, next) => {
@@ -99,7 +99,7 @@ exports.createEventJoin = async (req, res, next) => {
                 [Op.and]: [{ eventId: +value.id }, { userId: value.userId }],
             },
         });
-
+        console.log("#######", value.id);
         const check = !!checkUserInEvent;
 
         if (check) {
@@ -112,6 +112,8 @@ exports.createEventJoin = async (req, res, next) => {
                 where: { userId: id },
                 include: Event,
             });
+
+            console.log("###UP-chats##", chats);
 
             res.status(200).json({ events: events, chats: chats });
         } else {
@@ -129,6 +131,7 @@ exports.createEventJoin = async (req, res, next) => {
                 where: { userId: value.userId },
                 include: Event,
             });
+            console.log("###LOW-chats##", chats);
             res.status(200).json({ events: events, chats: chats });
         }
     } catch (err) {
