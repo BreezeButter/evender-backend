@@ -37,6 +37,7 @@ io.on("connection", (socket) => {
                 message: input.message,
                 userId: input.userId,
                 eventId: input.room,
+                image: input.image,
             });
             // console.log("DDDDDDDDDDDDDDDDDDD", result);
         }
