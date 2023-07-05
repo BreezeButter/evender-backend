@@ -4,12 +4,13 @@ const { User, Event, UserType } = require("../models");
 
 exports.updateUser = async (req, res, next) => {
     try {
-        console.log("HELLO")
+        console.log("HELLO");
         const { id } = req.user;
-        const result = await uploadService.upload(req.file.path);
-        console.log("PATH#######", result)
+        let result;
+        if (req.file) result = await uploadService.upload(req.file.path);
+        console.log("PATH#######", result);
         const { firstName, lastName, gender, bdate, aboutMe } = req.body;
-        console.log("DDDDDDD", req.body)
+        console.log("DDDDDDD", req.body);
 
         const update = await User.update(
             {
@@ -18,7 +19,7 @@ exports.updateUser = async (req, res, next) => {
                 gender,
                 bdate,
                 aboutMe,
-                image: result.secure_url,
+                image: result?.secure_url,
             },
             {
                 where: { id: id },
@@ -50,7 +51,7 @@ exports.fetchUser = async (req, res, next) => {
         // console.log(HELLLO, id);
         const userProfile = await User.findOne({
             where: { id: id },
-            include: { model: UserType }
+            include: { model: UserType },
         });
 
         res.status(200).json(userProfile);
