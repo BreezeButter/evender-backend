@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 
-const password = "123456";
+const password = "boom123456";
 const hashedPassword = bcrypt.hashSync(password, 12);
 
 const {
